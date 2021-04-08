@@ -35,4 +35,9 @@ public class StringCalulatorTest {
 
     }
 
+    @Test
+    public void add_setSemicolonDelimiter_expectThree() {
+        assertEquals(3,StringCalculator.add("\\;\n1;2"));
+    }
+
 }
