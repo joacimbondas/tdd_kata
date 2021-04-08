@@ -1,4 +1,10 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StringCalculator {
 
@@ -28,9 +34,16 @@ public class StringCalculator {
             }
         }
 
-
-        return Arrays.stream(numbers.split(delimiter))
+        List<Integer> intList = Arrays.stream(numbers.split(delimiter))
                 .filter(number -> !"".equals(number))
-                .mapToInt(Integer::parseInt).sum();
+                .mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+        for (int i = 0; i < intList.size(); i++) {
+            if(intList.get(i)>=1000){
+                intList.set(i,0);
+            }
+        }
+        return intList.stream()
+                .reduce(0, Integer::sum);
+
     }
 }
