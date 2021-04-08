@@ -32,19 +32,13 @@ public class StringCalulatorTest {
     }
 
     @Test
-    public void add_givenOneCommaNewline_expectException() {
-        assertThrows(NumberFormatException.class, () -> StringCalculator.add("1,\n"));
-
-    }
-
-    @Test
     public void add_setSemicolonDelimiter_expectThree() {
-        assertEquals(3, StringCalculator.add("\\;\n1;2"));
+        assertEquals(3, StringCalculator.add("//;\n1;2"));
     }
 
     @Test
     public void add_negativeNumber_expectException() {
-        assertThrows(NumberFormatException.class, () -> StringCalculator.add("1,\n"));
+
         try {
             StringCalculator.add("1,-2");
         } catch (Exception e) {
@@ -57,5 +51,10 @@ public class StringCalulatorTest {
     @Test
     public void add_ignoreThousand_expectTwo() {
         assertEquals(2, StringCalculator.add("1001,2"));
+    }
+
+    @Test
+    public void add_setLongDelimiter_expectSix() {
+        assertEquals(6, StringCalculator.add("//[***]\n1***2***3"));
     }
 }
