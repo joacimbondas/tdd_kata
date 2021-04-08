@@ -39,5 +39,18 @@ public class StringCalulatorTest {
     public void add_setSemicolonDelimiter_expectThree() {
         assertEquals(3,StringCalculator.add("\\;\n1;2"));
     }
+    @Test
+    public void add_negativeNumber_expectException() {
+        assertThrows(NumberFormatException.class, ()->StringCalculator.add("1,\n"));
+        try
+        {
+            StringCalculator.add("1,-2");
+        }
+        catch(Exception e)
+        {
+            String message = "negatives not allowed";
+            assertEquals(message, e.getMessage());
+        }
 
+    }
 }
