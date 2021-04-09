@@ -16,4 +16,8 @@ public class RomanNumeralsTest {
     public void convert_givenFive_expectV() {
         assertEquals("V", RomanNumerals.convert(5));
     }
+    @Test
+    public void convert_givenFour_expectIV() {
+        assertEquals("IV", RomanNumerals.convert(4));
+    }
 }
