@@ -41,4 +41,9 @@ public class RomanNumeralsTest {
     public void convert_givenNine_expectIX() {
         assertEquals("IX", RomanNumerals.convert(9));
     }
+    @Test
+    public void convert_givenFortyNine_expectXLIX() {
+        assertEquals("XLIX", RomanNumerals.convert(49));
+    }
+
 }
