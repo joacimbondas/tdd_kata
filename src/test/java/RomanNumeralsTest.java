@@ -10,6 +10,10 @@ public class RomanNumeralsTest {
     }
     @Test
     public void convert_givenThree_expectIII() {
-        assertEquals("II", RomanNumerals.convert(2));
+        assertEquals("III", RomanNumerals.convert(3));
+    }
+    @Test
+    public void convert_givenFive_expectV() {
+        assertEquals("V", RomanNumerals.convert(5));
     }
 }
