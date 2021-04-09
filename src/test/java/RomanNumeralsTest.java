@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RomanNumeralsTest {
 
     @Test
-    public void add_givenEmptyString_expectZero() {
+    public void convert_givenTwo_expectII() {
         assertEquals("II", RomanNumerals.convert(2));
     }
 }
