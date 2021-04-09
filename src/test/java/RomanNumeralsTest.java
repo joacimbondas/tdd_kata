@@ -20,4 +20,8 @@ public class RomanNumeralsTest {
     public void convert_givenFour_expectIV() {
         assertEquals("IV", RomanNumerals.convert(4));
     }
+    @Test
+    public void convert_givenSix_expectVI() {
+        assertEquals("VI", RomanNumerals.convert(6));
+    }
 }

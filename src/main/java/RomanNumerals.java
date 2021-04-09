@@ -24,6 +24,9 @@ public class RomanNumerals {
             else if(arabicNumbers[i]-arabicNumbers[i-1]==number){
                 return romanNumbers[i-1]+romanNumbers[i];
             }
+            else if(arabicNumbers[i]+arabicNumbers[i-1]==number){
+                return romanNumbers[i]+romanNumbers[i-1];
+            }
         }
 
 
