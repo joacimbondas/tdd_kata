@@ -37,4 +37,8 @@ public class RomanNumeralsTest {
     public void convert_givenEight_expectVIII() {
         assertEquals("VIII", RomanNumerals.convert(8));
     }
+    @Test
+    public void convert_givenNine_expectIX() {
+        assertEquals("IX", RomanNumerals.convert(9));
+    }
 }

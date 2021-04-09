@@ -25,15 +25,26 @@ public class RomanNumerals {
             } else if (arabicNumbers[i] + arabicNumbers[i - 1] == number) {
                 return romanNumbers[i] + romanNumbers[i - 1];
             } else if (number < arabicNumbers[i + 1] && number > arabicNumbers[i]) {
-                int tempNumber = number - arabicNumbers[i];
-                roman = romanNumbers[i];
-                for (int j = 0; j < tempNumber; j++) {
-                    roman = roman + "I";
+                if((arabicNumbers[i + 1] - number) > 1){
+                    number = number - arabicNumbers[i];
+                    roman = roman+romanNumbers[i];
+                    if (number < 4 && number > 0) {
+                        for (int j = 0; j < number; j++) {
+                            roman = roman + "I";
+                        }
+                    }else {
+                        convert(number);
+                    }
                 }
+                else{
+                    roman = roman + "I"+romanNumbers[i+1];
+                }
+
             }
         }
 
 
         return roman;
     }
+
 }
