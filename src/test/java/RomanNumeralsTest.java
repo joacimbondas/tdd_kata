@@ -8,4 +8,8 @@ public class RomanNumeralsTest {
     public void convert_givenTwo_expectII() {
         assertEquals("II", RomanNumerals.convert(2));
     }
+    @Test
+    public void convert_givenThree_expectIII() {
+        assertEquals("II", RomanNumerals.convert(2));
+    }
 }
