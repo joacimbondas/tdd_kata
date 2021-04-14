@@ -45,5 +45,8 @@ public class RomanNumeralsTest {
     public void convert_givenFortyNine_expectXLIX() {
         assertEquals("XLIX", RomanNumerals.convert(49));
     }
-
+    @Test
+    public void convert_given1972_expectMCMLXXII() {
+        assertEquals("MCMLXXII", RomanNumerals.convert(1972));
+    }
 }

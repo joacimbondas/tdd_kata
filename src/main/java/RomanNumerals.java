@@ -25,40 +25,46 @@ public class RomanNumerals {
     }
 
     public static String converterHelper(int number, String roman) {
-
+        if (number == 0) {
+            return roman;
+        }
+        if (number > 1000) {
+            number -= 1000;
+            roman = roman + romanNumbers[0];
+        }
         for (int i = 1; i < arabicNumbers.length; i++) {
             if (number == arabicNumbers[i]) {
                 roman = roman + romanNumbers[i];
                 return roman;
-            } else if (number < 4 && number > 0) {
+            } else if (number < 4) {
                 for (int j = 0; j < number; j++) {
                     roman = roman + "I";
                 }
                 return roman;
-            }
-            //if between 50 and 10
-            else if (number < arabicNumbers[i - 1] && number > arabicNumbers[i]) {
-                //difference = 1
-                int difference = arabicNumbers[i - 1] - number;
-                if (number == 9) {
-                    roman = roman + "IX";
-                    return roman;
-                } else if (difference == arabicNumbers[i]) {
-                    roman = roman + romanNumbers[i] + romanNumbers[i - 1];
-                    return roman;
-                } else {
-                    number = number - (arabicNumbers[i - 1] - arabicNumbers[i]);
-                    if (number < 5) {
+            } else if (number < arabicNumbers[i - 1] && number > arabicNumbers[i]) {
+                if (i % 2 == 0) {
+                    if (Math.abs(number - (arabicNumbers[i] * 3)) < Math.abs(number - (arabicNumbers[i - 1] - arabicNumbers[i]))) {
                         roman = roman + romanNumbers[i];
+                        number -= arabicNumbers[i];
                     } else {
                         roman = roman + romanNumbers[i] + romanNumbers[i - 1];
+                        number -= (arabicNumbers[i - 1] - arabicNumbers[i]);
+                    }
+                } else {
+                    if (Math.abs(number - (arabicNumbers[i] + arabicNumbers[i + 1] * 3)) < Math.abs(number - (arabicNumbers[i - 1] - arabicNumbers[i + 1]))) {
+                        roman = roman + romanNumbers[i];
+                        number -= arabicNumbers[i];
+                        for (int j = 0; j < number - arabicNumbers[i]; j++) {
+                            roman = roman + romanNumbers[i + 1];
+                            number -= arabicNumbers[i + 1];
+                        }
+                        return converterHelper(number, roman);
+                    } else {
+                        roman = roman + romanNumbers[i + 1] + romanNumbers[i - 1];
+                        number -= (arabicNumbers[i - 1] - arabicNumbers[i + 1]);
                     }
 
-                    return converterHelper(number, roman);
                 }
-            } else if (number > 1000) {
-                roman = roman + "M";
-                number -= 1000;
                 return converterHelper(number, roman);
             }
 
