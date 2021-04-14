@@ -1,52 +1,29 @@
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RomanNumeralsTest {
 
-    @Test
-    public void convert_givenTwo_expectII() {
-        assertEquals("II", RomanNumerals.convert(2));
+
+    @ParameterizedTest
+    @CsvSource({
+            "2, II",
+            "3,III",
+            "4, IV",
+            "5, V",
+            "6, VI",
+            "7, VII",
+            "8, VIII",
+            "9, IX",
+            "49, XLIX",
+            "1972, MCMLXXII"
+    })
+    public void testAllAtOnce(int input, String expected) {
+        String actualValue = RomanNumerals.convert(input);
+        assertEquals(expected, actualValue);
     }
 
-    @Test
-    public void convert_givenThree_expectIII() {
-        assertEquals("III", RomanNumerals.convert(3));
-    }
-
-    @Test
-    public void convert_givenFive_expectV() {
-        assertEquals("V", RomanNumerals.convert(5));
-    }
-
-    @Test
-    public void convert_givenFour_expectIV() {
-        assertEquals("IV", RomanNumerals.convert(4));
-    }
-
-    @Test
-    public void convert_givenSix_expectVI() {
-        assertEquals("VI", RomanNumerals.convert(6));
-    }
-
-    @Test
-    public void convert_givenSeven_expectVII() {
-        assertEquals("VII", RomanNumerals.convert(7));
-    }
-    @Test
-    public void convert_givenEight_expectVIII() {
-        assertEquals("VIII", RomanNumerals.convert(8));
-    }
-    @Test
-    public void convert_givenNine_expectIX() {
-        assertEquals("IX", RomanNumerals.convert(9));
-    }
-    @Test
-    public void convert_givenFortyNine_expectXLIX() {
-        assertEquals("XLIX", RomanNumerals.convert(49));
-    }
-    @Test
-    public void convert_given1972_expectMCMLXXII() {
-        assertEquals("MCMLXXII", RomanNumerals.convert(1972));
-    }
 }
