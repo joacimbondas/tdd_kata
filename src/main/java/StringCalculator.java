@@ -1,19 +1,22 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+
 
 public class StringCalculator {
+    private final Logger logger;
 
+    public StringCalculator(Logger logger) {
+        this.logger = logger;
+    }
 
-    public static int add(String numbers) {
+    public int add(String numbers) {
 
-        if (numbers.isEmpty()) {
+        if (numbers == null || numbers.isEmpty()) {
             return 0;
         }
         String delimiter = ",|\n";
@@ -31,11 +34,11 @@ public class StringCalculator {
                 String cleanupString = "";
                 for (String str : matchList) {
                     cleanupString = cleanupString + str;
-                    delimiter = delimiter +"|"+ str;
+                    delimiter = delimiter + "|" + str;
                 }
                 String cleanupInput = "//" + cleanupString + "\n";
                 numbers = numbers.replace(cleanupInput, "");
-            }else {
+            } else {
                 delimiter = String.valueOf(numbers.charAt(2));
                 numbers = numbers.substring(4);
             }
@@ -55,6 +58,7 @@ public class StringCalculator {
 
         for (int i = 0; i < intList.size(); i++) {
             if (intList.get(i) >= 1000) {
+                log(intList.get(i));
                 intList.set(i, 0);
             }
         }
@@ -62,4 +66,10 @@ public class StringCalculator {
         return intList.stream()
                 .reduce(0, Integer::sum);
     }
+
+
+    public void log(Integer number) {
+        logger.log(number);
+    }
+
 }
