@@ -1,7 +1,11 @@
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -12,6 +16,12 @@ public class StringCalculator {
 
     public StringCalculator(Logger logger) {
         this.logger = logger;
+    }
+
+    public static void main(String... args) {
+        System.out.println("Welcome to string calculator");
+        System.out.println("Type scalc and the numbers you want to add");
+
     }
 
     public int add(String numbers) {

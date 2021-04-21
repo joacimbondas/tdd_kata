@@ -1,16 +1,30 @@
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StringCalulatorTest {
     private StringCalculator stringCalculator;
     private Logger logger;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
 
     @BeforeEach
     public void setUp() {
         logger = Mockito.mock(Logger.class);
         stringCalculator = new StringCalculator(logger);
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @AfterEach
+    public void restore() {
+        System.setOut(originalOut);
     }
 
     @Test
@@ -69,28 +83,40 @@ public class StringCalulatorTest {
     public void add_setSeveralDelimiters_expectSix() {
         assertEquals(6, stringCalculator.add("//[*][%]\n1*2%3"));
     }
+
     @Test
     public void add_setSeveralLongDelimiters_expectSix() {
         assertEquals(6, stringCalculator.add("//[***][%%%]\n1***2%%%3"));
     }
+
     @Test
     public void log_largerThanThousand() {
 
     }
+
     @Test
     public void mock_testOneOverThousand() {
         stringCalculator.add("2000,3");
         Mockito.verify(logger, Mockito.times(1)).log(Mockito.eq(2000));
     }
+
     @Test
     public void mock_testSeveralOverThousand() {
         stringCalculator.add("2000,3,3000,500");
         Mockito.verify(logger, Mockito.atLeastOnce()).log(Mockito.eq(2000));
         Mockito.verify(logger, Mockito.atLeastOnce()).log(Mockito.eq(3000));
     }
+
     @Test
     public void mock_testNoneOverThousand() {
         stringCalculator.add("900,3");
         Mockito.verify(logger, Mockito.never()).log(Mockito.eq(900));
     }
+
+    @Test
+    public void main_testWelcomeAndHelpText() {
+        StringCalculator.main();
+        assertEquals("Welcome to string calculator\r\nType scalc and the numbers you want to add",outContent.toString().trim());
+    }
+
 }
