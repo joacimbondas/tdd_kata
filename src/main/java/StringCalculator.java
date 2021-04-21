@@ -29,14 +29,13 @@ public class StringCalculator {
             }
             if (longDelimiter) {
                 String cleanupString = "";
-
                 for (String str : matchList) {
                     cleanupString = cleanupString + str;
                     delimiter = delimiter +"|"+ str;
                 }
                 String cleanupInput = "//" + cleanupString + "\n";
                 numbers = numbers.replace(cleanupInput, "");
-            } else {
+            }else {
                 delimiter = String.valueOf(numbers.charAt(2));
                 numbers = numbers.substring(4);
             }
