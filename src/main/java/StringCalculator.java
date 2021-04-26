@@ -26,12 +26,18 @@ public class StringCalculator {
         Scanner scanner = new Scanner(System.in);
 
         StringCalculator calc = new StringCalculator();
-        String number = scanner.nextLine();
-        while(!pattern.matcher(number).matches()) {
-            number += "\r\n" + scanner.nextLine();
+        while(true){
+            String number = scanner.nextLine();
+            if("".equals(number)){
+                break;
+            }
+            while(!pattern.matcher(number).matches()) {
+                number += "\r\n" + scanner.nextLine();
+            }
+            final String calculatorInput = number.replaceAll("[a-z' ]", "");
+            System.out.println("The result is "+ calc.add(calculatorInput));
         }
-        final String calculatorInput = number.replaceAll("[a-z' ]", "");
-        System.out.println("The result is "+ calc.add(calculatorInput));
+
 
 
     }
@@ -41,7 +47,7 @@ public class StringCalculator {
         if (numbers == null || numbers.isEmpty()) {
             return 0;
         }
-        String delimiter = ",|\n";
+        String delimiter = ",|\r\n";
 
         boolean longDelimiter = false;
         if (numbers.startsWith("//")) {
@@ -58,7 +64,7 @@ public class StringCalculator {
                     cleanupString = cleanupString + str;
                     delimiter = delimiter + "|" + str;
                 }
-                String cleanupInput = "//" + cleanupString + "\n";
+                String cleanupInput = "//" + cleanupString + "\r\n";
                 numbers = numbers.replace(cleanupInput, "");
             } else {
                 delimiter = String.valueOf(numbers.charAt(2));

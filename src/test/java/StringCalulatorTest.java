@@ -52,7 +52,7 @@ public class StringCalulatorTest {
 
     @Test
     public void add_givenOnePlusTwoPlusThreeWithNewline_expectSix() {
-        assertEquals(6, stringCalculator.add("1\n2,3"));
+        assertEquals(6, stringCalculator.add("1\r\n2,3"));
     }
 
     @Test
@@ -79,17 +79,17 @@ public class StringCalulatorTest {
 
     @Test
     public void add_setLongDelimiter_expectSix() {
-        assertEquals(6, stringCalculator.add("//[***]\n1***2***3"));
+        assertEquals(6, stringCalculator.add("//[***]\r\n1***2***3"));
     }
 
     @Test
     public void add_setSeveralDelimiters_expectSix() {
-        assertEquals(6, stringCalculator.add("//[*][%]\n1*2%3"));
+        assertEquals(6, stringCalculator.add("//[*][%]\r\n1*2%3"));
     }
 
     @Test
     public void add_setSeveralLongDelimiters_expectSix() {
-        assertEquals(6, stringCalculator.add("//[***][%%%]\n1***2%%%3"));
+        assertEquals(6, stringCalculator.add("//[***][%%%]\r\n1***2%%%3"));
     }
 
     @Test
@@ -118,6 +118,7 @@ public class StringCalulatorTest {
 
     @Test
     public void main_testWelcomeAndHelpText() {
+        createInputCommand("\r\n");
         StringCalculator.main();
         assertEquals("Welcome to string calculator\r\nType scalc and the numbers you want to add",outContent.toString().trim());
     }
@@ -129,6 +130,13 @@ public class StringCalulatorTest {
         assertEquals("Welcome to string calculator\r\nType scalc and the numbers you want to add\r\nThe result is 6",outContent.toString().trim());
     }
     @Test
+    public void main_testWithDelimiter_expect7() {
+        createInputCommand("scalc '//[***][%%%]\r\n1***2%%%4'\r\n");
+        StringCalculator.main();
+        assertEquals("Welcome to string calculator\r\nType scalc and the numbers you want to add\r\nThe result is 7",outContent.toString().trim());
+    }
+
+
     public void createInputCommand(String... args) {
         final String command = String.join("\r\n", args) +"\r\n";
         final InputStream targetStream = new ByteArrayInputStream(command.getBytes());
