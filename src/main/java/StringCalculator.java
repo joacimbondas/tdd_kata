@@ -12,15 +12,27 @@ import java.util.stream.Collectors;
 
 
 public class StringCalculator {
-    private final Logger logger;
-
+    private Logger logger;
+    private static final Pattern pattern = Pattern.compile("scalc '(.*[\\r\\n]*.*)'");
     public StringCalculator(Logger logger) {
         this.logger = logger;
     }
+    public StringCalculator() {
 
+    }
     public static void main(String... args) {
         System.out.println("Welcome to string calculator");
         System.out.println("Type scalc and the numbers you want to add");
+        Scanner scanner = new Scanner(System.in);
+
+        StringCalculator calc = new StringCalculator();
+        String number = scanner.nextLine();
+        while(!pattern.matcher(number).matches()) {
+            number += "\r\n" + scanner.nextLine();
+        }
+        final String calculatorInput = number.replaceAll("[a-z' ]", "");
+        System.out.println("The result is "+ calc.add(calculatorInput));
+
 
     }
 
