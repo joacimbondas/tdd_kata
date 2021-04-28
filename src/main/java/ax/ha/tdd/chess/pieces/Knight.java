@@ -28,10 +28,17 @@ public class Knight extends ChessPiece{
         allowedMovesList.add(new Coordinates(location.getXCoordinates()-2, location.getYCoordinates()+1));
         allowedMovesList.add(new Coordinates(location.getXCoordinates()-2, location.getYCoordinates()-1));
     }
+    public boolean canCatch(Chessboard chessboard, Coordinates destination) {
+        setAllowedMovesList();
+        if(chessboard.getPiece(destination)==null) {
+            return false;
+        }
+        return !chessboard.getPiece(destination).getPlayer().equals(this.player) && allowedMovesList.contains(destination);
+    }
     @Override
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
         setAllowedMovesList();
-        if(chessboard.getPiece(destination)!=null) {
+        if(chessboard.getPiece(destination)!=null && chessboard.getPiece(destination).getPlayer().equals(this.player)) {
             return false;
         }
         return allowedMovesList.contains(destination);

@@ -79,11 +79,7 @@ public class Rook extends ChessPiece {
                 return false;
             }
         }
-        if (chessboard.getPiece(destination) != null) {
-            return false;
-        }
-
-        return true;
+        return chessboard.getPiece(destination) == null;
     }
     public boolean canCatch(Chessboard chessboard, Coordinates destination) {
         if (this.getLocation().getXCoordinates() == (destination.getXCoordinates())) {

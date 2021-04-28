@@ -22,9 +22,7 @@ public class Pawn extends ChessPiece{
         if((this.location.getYCoordinates()-destination.getYCoordinates()==1 && !incrementingYAxis) ||
                 (destination.getYCoordinates()-this.location.getYCoordinates()==1 && incrementingYAxis)) {
             if(Math.abs(this.location.getXCoordinates()-destination.getXCoordinates())==1) {
-                if(chessboard.getPiece(destination)!=null&& !chessboard.getPiece(destination).getPlayer().equals(this.player)) {
-                    return true;
-                }
+                return chessboard.getPiece(destination) != null && !chessboard.getPiece(destination).getPlayer().equals(this.player);
             }
         }
         return false;
@@ -49,9 +47,6 @@ public class Pawn extends ChessPiece{
         if(!this.location.equals(this.startCoordinates) && Math.abs(this.location.getYCoordinates() - destination.getYCoordinates())>1) {
             return false;
         }
-        if(Math.abs(this.location.getYCoordinates() - destination.getYCoordinates())>2) {
-            return false;
-        }
-        return true;
+        return Math.abs(this.location.getYCoordinates() - destination.getYCoordinates()) <= 2;
     }
 }
