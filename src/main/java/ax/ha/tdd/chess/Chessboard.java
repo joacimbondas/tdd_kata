@@ -16,10 +16,10 @@ public class Chessboard {
     public static Chessboard fullBoard() {
         final Chessboard chessboard = new Chessboard();
 
-        chessboard.withMirroredPiece(PieceType.PAWN.getSymbol(), 1, Arrays.asList(0,1,2,3,4,5,6,7))
-                .withMirroredPiece(PieceType.ROOK.getSymbol(), 0, Arrays.asList(0,7))
-                .withMirroredPiece(PieceType.KNIGHT.getSymbol(), 0, Arrays.asList(1,6))
-                .withMirroredPiece(PieceType.BISHOP.getSymbol(), 0, Arrays.asList(2,5))
+        chessboard.withMirroredPiece(PieceType.PAWN.getSymbol(), 1, Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7))
+                .withMirroredPiece(PieceType.ROOK.getSymbol(), 0, Arrays.asList(0, 7))
+                .withMirroredPiece(PieceType.KNIGHT.getSymbol(), 0, Arrays.asList(1, 6))
+                .withMirroredPiece(PieceType.BISHOP.getSymbol(), 0, Arrays.asList(2, 5))
                 .withMirroredPiece(PieceType.KING.getSymbol(), 0, Arrays.asList(3))
                 .withMirroredPiece(PieceType.QUEEN.getSymbol(), 0, Arrays.asList(4));
         return chessboard;
@@ -33,14 +33,18 @@ public class Chessboard {
         board[chessPiece.getLocation().getXCoordinates()][chessPiece.getLocation().getYCoordinates()] = chessPiece;
     }
 
+    public void removePiece(final ChessPiece chessPiece) {
+        board[chessPiece.getLocation().getXCoordinates()][chessPiece.getLocation().getYCoordinates()] = null;
+    }
+
     /**
      * Helper method to initialize chessboard with {@link ChessPieceStub}.
      * Basically mirrors all added pieces for both players.
      * When all pieces has been implemented, this should be replaced with the proper implementations.
      *
-     * @param pieceType pieceType
+     * @param pieceType         pieceType
      * @param yCoordinateOffset yCoordinateOffset
-     * @param xCoordinates xCoordinates
+     * @param xCoordinates      xCoordinates
      * @return itself, like a builder pattern
      */
     private Chessboard withMirroredPiece(final String pieceType,

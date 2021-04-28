@@ -11,10 +11,13 @@ public abstract class ChessPiece {
 
     protected Coordinates location;
 
+    protected Coordinates startCoordinates;
+
     public ChessPiece(final Player player,
                       final Coordinates location) {
         this.player = player;
         this.location = location;
+        this.startCoordinates = location;
     }
 
     public abstract String getSymbol();
@@ -27,13 +30,21 @@ public abstract class ChessPiece {
         return location;
     }
 
+    public void setLocation(Coordinates coordinates) {
+        this.location = coordinates;
+    }
+
+    public Coordinates getStartCoordinates() {
+        return startCoordinates;
+    }
+
     /**
      * Suggestion of design:
      * Checks if the chessPiece can move to a certain destination.
      * I preferred to keep this logic tightly coupled to the pieces instead of the board,
      * since that makes the separation of logic easier.
      *
-     * @param chessboard chessboard
+     * @param chessboard  chessboard
      * @param destination destination
      * @return true if piece can move to the destination
      */
