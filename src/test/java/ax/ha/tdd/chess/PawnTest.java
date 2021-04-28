@@ -89,6 +89,13 @@ public class PawnTest {
         Assertions.assertFalse(pawn.canCatch(chessboard, new Coordinates('c',8)));
     }
     @Test
+    public void canCatch_givenBlackPawn_unableToCatchEmptySquare() {
+        chessboard = new Chessboard();
+        pawn = new Pawn(Player.BLACK, new Coordinates('b',7));
+        chessboard.addPiece(pawn);
+        Assertions.assertFalse(pawn.canCatch(chessboard, new Coordinates('c',8)));
+    }
+    @Test
     public void canCatch_givenBlackPawn_unableToCatchWhiteFurtherAway() {
         chessboard = new Chessboard();
         Pawn whitePawn = new Pawn(Player.WHITE, new Coordinates('d',6));
@@ -96,5 +103,32 @@ public class PawnTest {
         chessboard.addPiece(pawn);
         chessboard.addPiece(whitePawn);
         Assertions.assertFalse(pawn.canCatch(chessboard, new Coordinates('d',6)));
+    }
+    @Test
+    public void canCatch_givenWhitePawnNotFirstMove_ableToCatchBlackWhenCorrectPosition() {
+        chessboard = new Chessboard();
+        Pawn blackPawn = new Pawn(Player.BLACK, new Coordinates('a',3));
+        pawn = new Pawn(Player.WHITE, new Coordinates('b',2));
+        chessboard.addPiece(pawn);
+        chessboard.addPiece(blackPawn);
+        Assertions.assertTrue(pawn.canCatch(chessboard, new Coordinates('a',3)));
+    }
+    @Test
+    public void canCatch_givenWhitePawnNotFirstMove_unableToCatchBlackBackwards() {
+        chessboard = new Chessboard();
+        Pawn blackPawn = new Pawn(Player.BLACK, new Coordinates('a',1));
+        pawn = new Pawn(Player.WHITE, new Coordinates('b',2));
+        chessboard.addPiece(pawn);
+        chessboard.addPiece(blackPawn);
+        Assertions.assertFalse(pawn.canCatch(chessboard, new Coordinates('a',1)));
+    }
+    @Test
+    public void canCatch_givenBlackPawn_unableToCatchBlack() {
+        chessboard = new Chessboard();
+        Pawn blackPawn = new Pawn(Player.BLACK, new Coordinates('c',6));
+        pawn = new Pawn(Player.BLACK, new Coordinates('b',7));
+        chessboard.addPiece(pawn);
+        chessboard.addPiece(blackPawn);
+        Assertions.assertFalse(pawn.canCatch(chessboard, new Coordinates('c',6)));
     }
 }
