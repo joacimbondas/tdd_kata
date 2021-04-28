@@ -47,5 +47,34 @@ public class RookTest {
         chessboard.addPiece(rook1);
         Assertions.assertFalse(rook.canMove(chessboard, new Coordinates('a',5)));
     }
+    @Test
+    public void canCatch_givenRook_ableToCatchVertically() {
+        Rook rook1 = new Rook(Player.BLACK, new Coordinates('a',3));
+        chessboard.addPiece(rook1);
+        Assertions.assertTrue(rook.canCatch(chessboard, rook1.getLocation()));
+    }
+    @Test
+    public void canCatch_givenRook_ableToCatchHorizontally() {
+        Rook rook1 = new Rook(Player.BLACK, new Coordinates('e',1));
+        chessboard.addPiece(rook1);
+        Assertions.assertTrue(rook.canCatch(chessboard, rook1.getLocation()));
+    }
+    @Test
+    public void canCatch_givenRook_unableToCatchVerticallyWithFriendlyInTheWay() {
+        Rook rook1 = new Rook(Player.BLACK, new Coordinates('a',3));
+        Rook friendlyRook = new Rook(Player.WHITE, new Coordinates('a',2));
+        chessboard.addPiece(rook1);
+        chessboard.addPiece(friendlyRook);
+        Assertions.assertFalse(rook.canCatch(chessboard, rook1.getLocation()));
+    }
+    @Test
+    public void canCatch_givenRook_unableToCatchHorizontallyWithFriendlyInTheWay() {
+        Rook rook1 = new Rook(Player.BLACK, new Coordinates('e',1));
+        Rook friendlyRook = new Rook(Player.WHITE, new Coordinates('c',1));
+        chessboard.addPiece(rook1);
+        chessboard.addPiece(friendlyRook);
+        Assertions.assertFalse(rook.canCatch(chessboard, rook1.getLocation()));
+    }
+
 
 }
