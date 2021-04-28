@@ -68,7 +68,7 @@ public class PawnTest {
         pawn = new Pawn(Player.BLACK, new Coordinates('b',7));
         chessboard.addPiece(pawn);
         chessboard.addPiece(whitePawn);
-        Assertions.assertFalse(pawn.canMove(chessboard, new Coordinates('b',5)));
+        Assertions.assertFalse(pawn.canMove(chessboard, whitePawn.getLocation()));
     }
     @Test
     public void canCatch_givenBlackPawnNotFirstMove_ableToCatchWhiteWhenCorrectPosition() {
@@ -77,7 +77,7 @@ public class PawnTest {
         pawn = new Pawn(Player.BLACK, new Coordinates('b',7));
         chessboard.addPiece(pawn);
         chessboard.addPiece(whitePawn);
-        Assertions.assertTrue(pawn.canCatch(chessboard, new Coordinates('c',6)));
+        Assertions.assertTrue(pawn.canCatch(chessboard, whitePawn.getLocation()));
     }
     @Test
     public void canCatch_givenBlackPawnNotFirstMove_unableToCatchWhiteBackwards() {
@@ -86,7 +86,7 @@ public class PawnTest {
         pawn = new Pawn(Player.BLACK, new Coordinates('b',7));
         chessboard.addPiece(pawn);
         chessboard.addPiece(whitePawn);
-        Assertions.assertFalse(pawn.canCatch(chessboard, new Coordinates('c',8)));
+        Assertions.assertFalse(pawn.canCatch(chessboard, whitePawn.getLocation()));
     }
     @Test
     public void canCatch_givenBlackPawn_unableToCatchEmptySquare() {
@@ -102,7 +102,7 @@ public class PawnTest {
         pawn = new Pawn(Player.BLACK, new Coordinates('b',7));
         chessboard.addPiece(pawn);
         chessboard.addPiece(whitePawn);
-        Assertions.assertFalse(pawn.canCatch(chessboard, new Coordinates('d',6)));
+        Assertions.assertFalse(pawn.canCatch(chessboard, whitePawn.getLocation()));
     }
     @Test
     public void canCatch_givenWhitePawnNotFirstMove_ableToCatchBlackWhenCorrectPosition() {
@@ -111,7 +111,7 @@ public class PawnTest {
         pawn = new Pawn(Player.WHITE, new Coordinates('b',2));
         chessboard.addPiece(pawn);
         chessboard.addPiece(blackPawn);
-        Assertions.assertTrue(pawn.canCatch(chessboard, new Coordinates('a',3)));
+        Assertions.assertTrue(pawn.canCatch(chessboard, blackPawn.getLocation()));
     }
     @Test
     public void canCatch_givenWhitePawnNotFirstMove_unableToCatchBlackBackwards() {
@@ -120,7 +120,7 @@ public class PawnTest {
         pawn = new Pawn(Player.WHITE, new Coordinates('b',2));
         chessboard.addPiece(pawn);
         chessboard.addPiece(blackPawn);
-        Assertions.assertFalse(pawn.canCatch(chessboard, new Coordinates('a',1)));
+        Assertions.assertFalse(pawn.canCatch(chessboard, blackPawn.getLocation()));
     }
     @Test
     public void canCatch_givenBlackPawn_unableToCatchBlack() {
@@ -129,6 +129,16 @@ public class PawnTest {
         pawn = new Pawn(Player.BLACK, new Coordinates('b',7));
         chessboard.addPiece(pawn);
         chessboard.addPiece(blackPawn);
-        Assertions.assertFalse(pawn.canCatch(chessboard, new Coordinates('c',6)));
+        Assertions.assertFalse(pawn.canCatch(chessboard, blackPawn.getLocation()));
+    }
+    @Test
+    public void canCatch_givenBlackPawn_unableToCatchForward() {
+        chessboard = new Chessboard();
+        Pawn whitePawn = new Pawn(Player.BLACK, new Coordinates('b',6));
+        pawn = new Pawn(Player.BLACK, new Coordinates('b',7));
+        chessboard.addPiece(pawn);
+        chessboard.addPiece(whitePawn);
+        Assertions.assertFalse(pawn.canCatch(chessboard, whitePawn.getLocation()));
+        Assertions.assertFalse(pawn.canMove(chessboard, whitePawn.getLocation()));
     }
 }
