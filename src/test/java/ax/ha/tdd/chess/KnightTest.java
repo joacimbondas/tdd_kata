@@ -41,7 +41,7 @@ public class KnightTest {
         Assertions.assertFalse(knight.canMove(chessboard, knight2.getLocation()));
     }
     @Test
-    public void canCatch_givenWhiteKnight_expectableToCatchBlack() {
+    public void canCatch_givenWhiteKnight_expectAbleToCatchBlack() {
         Knight knight2 = new Knight(Player.BLACK, new Coordinates('c',5));
         chessboard.addPiece(knight2);
         Assertions.assertTrue(knight.canCatch(chessboard, knight2.getLocation()));

@@ -53,6 +53,24 @@ public class Bishoptest {
         chessboard.addPiece(bishopFriendly);
         Assertions.assertFalse(bishop.canMove(chessboard, new Coordinates('h', 8)));
     }
+    @Test
+    public void canMove_givenWhiteBishop_expectBeingAbleToMoveToEmptySquareBeforeOccupiedSquare() {
+        Bishop bishopFriendly = new Bishop(Player.WHITE, new Coordinates('h', 8));
+        chessboard.addPiece(bishopFriendly);
+        Assertions.assertTrue(bishop.canMove(chessboard, new Coordinates('g', 7)));
+    }
+    @Test
+    public void canCatch_givenWhiteBishop_expectAbleToCatchBlack() {
+        Bishop bishop1 = new Bishop(Player.BLACK, new Coordinates('c',5));
+        chessboard.addPiece(bishop1);
+        Assertions.assertTrue(bishop.canCatch(chessboard, bishop1.getLocation()));
+    }
+    @Test
+    public void canCatch_givenWhiteBishop_expectUnableToCatchWhite() {
+        Bishop bishop1 = new Bishop(Player.WHITE, new Coordinates('c',5));
+        chessboard.addPiece(bishop1);
+        Assertions.assertFalse(bishop.canCatch(chessboard, bishop1.getLocation()));
+    }
 
 
 }

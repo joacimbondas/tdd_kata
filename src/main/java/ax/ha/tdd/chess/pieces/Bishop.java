@@ -5,17 +5,13 @@ import ax.ha.tdd.chess.Coordinates;
 import ax.ha.tdd.chess.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class Bishop extends ChessPiece {
     private ArrayList<Coordinates> allowedMovesList;
-    ArrayList<Coordinates> upRight;
-    ArrayList<Coordinates> downRight;
-    ArrayList<Coordinates> upLeft;
-    ArrayList<Coordinates> downLeft;
-
+    private ArrayList<Coordinates> upRight;
+    private ArrayList<Coordinates> downRight;
+    private ArrayList<Coordinates> upLeft;
+    private ArrayList<Coordinates> downLeft;
     public Bishop(Player player, Coordinates location) {
         super(player, location);
     }
@@ -76,23 +72,26 @@ public class Bishop extends ChessPiece {
         int locX = this.location.getXCoordinates();
         int locY = this.location.getYCoordinates();
         if (destY < locY && destX > locX) {
-            return checkPath(upRight, chessboard);
+            return checkPath(upRight, chessboard, destination);
         }
         if (destY > locY && destX > locX) {
-            return checkPath(downRight, chessboard);
+            return checkPath(downRight, chessboard, destination);
         }
         if (destY > locY && destX < locX) {
-            return checkPath(downLeft, chessboard);
+            return checkPath(downLeft, chessboard, destination);
         }
         if (destY < locY && destX < locX) {
-            return checkPath(upLeft, chessboard);
+            return checkPath(upLeft, chessboard, destination);
         }
         return true;
     }
 
-    public boolean checkPath(ArrayList<Coordinates> ar, Chessboard chessboard) {
+    public boolean checkPath(ArrayList<Coordinates> ar, Chessboard chessboard, Coordinates destination) {
         for (Coordinates c : ar) {
             if (!c.equals(this.location)) {
+                if(c.equals(destination)){
+                    return true;
+                }
                 if (chessboard.getPiece(c) != null) {
                     return false;
                 }
@@ -105,5 +104,9 @@ public class Bishop extends ChessPiece {
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
         setAllowedMovesList();
         return allowedMovesList.contains(destination) && pathIsClear(chessboard, destination);
+    }
+    public boolean canCatch(Chessboard chessboard, Coordinates destination) {
+        setAllowedMovesList();
+        return allowedMovesList.contains(destination) && !chessboard.getPiece(destination).getPlayer().equals(this.player);
     }
 }
