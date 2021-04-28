@@ -11,7 +11,7 @@ public class Pawn extends ChessPiece{
     }
 
     public void move(Chessboard chessboard, Coordinates destination) {
-        if(canMove(chessboard,destination)) {
+        if(canMove(chessboard,destination)||canCatch(chessboard,destination)) {
             chessboard.removePiece(this);
             this.setLocation(destination);
             chessboard.addPiece(this);

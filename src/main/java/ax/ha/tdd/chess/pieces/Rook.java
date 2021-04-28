@@ -5,6 +5,7 @@ import ax.ha.tdd.chess.Coordinates;
 import ax.ha.tdd.chess.Player;
 
 public class Rook extends ChessPiece {
+    private Coordinates catchCoord;
     public Rook(Player player, Coordinates location) {
         super(player, location);
     }
@@ -12,6 +13,18 @@ public class Rook extends ChessPiece {
     @Override
     public String getSymbol() {
         return null;
+    }
+    public void move(Chessboard chessboard, Coordinates destination) {
+        if(canCatch(chessboard, destination)) {
+            chessboard.removePiece(this);
+            this.setLocation(catchCoord);
+            chessboard.addPiece(this);
+        }
+        else if(canMove(chessboard,destination)) {
+            chessboard.removePiece(this);
+            this.setLocation(destination);
+            chessboard.addPiece(this);
+        }
     }
 
     public Coordinates pathIsClear(Coordinates destination, boolean horizontalMove, Chessboard chessboard) {
@@ -76,6 +89,7 @@ public class Rook extends ChessPiece {
         if (this.getLocation().getXCoordinates() == (destination.getXCoordinates())) {
             if(pathIsClear(destination, false, chessboard)!=null) {
                 if(!chessboard.getPiece(pathIsClear(destination, false, chessboard)).getPlayer().equals(this.player)) {
+                    catchCoord = pathIsClear(destination, false, chessboard);
                     return true;
                 } else {
                     return false;
@@ -85,6 +99,7 @@ public class Rook extends ChessPiece {
         if (this.getLocation().getYCoordinates() == (destination.getYCoordinates())) {
             if(pathIsClear(destination, true, chessboard)!=null) {
                 if(!chessboard.getPiece(pathIsClear(destination, true, chessboard)).getPlayer().equals(this.player)) {
+                    catchCoord = pathIsClear(destination, true, chessboard);
                     return true;
                 } else {
                     return false;
