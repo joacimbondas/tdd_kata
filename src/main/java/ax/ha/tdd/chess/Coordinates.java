@@ -11,7 +11,7 @@ public class Coordinates {
             throw new IllegalArgumentException("xCoordinates " + xCoordinates + " is not valid");
         }
         if (yCoordinates < 0 || yCoordinates > 7) {
-            throw new IllegalArgumentException("xCoordinates " + xCoordinates + " is not valid");
+            throw new IllegalArgumentException("yCoordinates " + yCoordinates + " is not valid");
         }
 
         this.xCoordinates = xCoordinates;

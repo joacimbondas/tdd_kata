@@ -14,6 +14,7 @@ public class Rook extends ChessPiece {
     public String getSymbol() {
         return null;
     }
+
     public void move(Chessboard chessboard, Coordinates destination) {
         if(canCatch(chessboard, destination)) {
             chessboard.removePiece(this);
