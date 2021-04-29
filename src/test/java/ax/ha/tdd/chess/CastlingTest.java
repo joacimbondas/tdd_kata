@@ -1,5 +1,6 @@
 package ax.ha.tdd.chess;
 
+import ax.ha.tdd.chess.pieces.Bishop;
 import ax.ha.tdd.chess.pieces.King;
 import ax.ha.tdd.chess.pieces.Rook;
 import org.junit.jupiter.api.Assertions;
@@ -41,6 +42,12 @@ public class CastlingTest {
         rook.move(chessboard, new Coordinates('a', 1));
         Assertions.assertFalse(rook.castling(chessboard, king));
         Assertions.assertEquals(rook.getLocation(), rook.getStartCoordinates());
+    }
+    @Test
+    public void castlingIllegalIfPathIsObstructed() {
+        Bishop bishop = new Bishop(Player.WHITE, new Coordinates('c', 1));
+        chessboard.addPiece(bishop);
+        Assertions.assertFalse(rook.castling(chessboard, king));
     }
 
 }
