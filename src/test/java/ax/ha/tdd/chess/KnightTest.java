@@ -49,7 +49,7 @@ public class KnightTest {
     }
     @Test
     public void canCatch_givenWhiteKnight_expectUnableToCatchKing() {
-        King king2 = new King(Player.BLACK, new Coordinates('c',5));
+        King king2 = new King(Player.BLACK, new Coordinates('c',5), chessboard);
         chessboard.addPiece(king2);
         Assertions.assertFalse(knight.canCatch(chessboard, king2.getLocation()));
     }

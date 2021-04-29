@@ -74,7 +74,7 @@ public class Bishoptest {
     }
     @Test
     public void canCatch_givenWhiteBishop_expectUnableToCatchKing() {
-        King king2 = new King(Player.BLACK, new Coordinates('c',5));
+        King king2 = new King(Player.BLACK, new Coordinates('c',5), chessboard);
         chessboard.addPiece(king2);
         Assertions.assertFalse(bishop.canCatch(chessboard, king2.getLocation()));
     }

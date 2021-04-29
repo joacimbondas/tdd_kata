@@ -11,14 +11,17 @@ import java.util.List;
 
 public class Chessboard {
 
+
+
     // This could just as easily be replaced with a List or Set,
     // since the ChessPieces right now keep track of their own location.
     // Feel free to change this however you like
-
+    private King kingW;
+    private King kingB;
     private final ChessPiece[][] board = new ChessPiece[8][8];
-
+    private static ArrayList<ChessPiece> pieces;
     public static Chessboard fullBoard() {
-
+    pieces = new ArrayList<>();
         final Chessboard chessboard = new Chessboard();
 
         chessboard.withMirroredPiece(PieceType.PAWN.getSymbol(), 1, Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7))
@@ -42,8 +45,8 @@ public class Chessboard {
         board[chessPiece.getLocation().getXCoordinates()][chessPiece.getLocation().getYCoordinates()] = null;
     }
 
-    public void checkLookup(ArrayList<ChessPiece> pieces) {
-
+    public void checkLookup() {
+        setPieces();
         for (ChessPiece c : pieces) {
             c.setCheck(false);
         }
@@ -53,6 +56,16 @@ public class Chessboard {
             }
             else{
                 c.checkLookup(this);
+            }
+        }
+    }
+    public void setPieces() {
+        pieces = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (getPiece(new Coordinates(i, j)) != null) {
+                    pieces.add(getPiece(new Coordinates(i, j)));
+                }
             }
         }
     }
@@ -74,5 +87,20 @@ public class Chessboard {
             addPiece(new ChessPieceStub(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinateOffset)));
         });
         return this;
+    }
+    public King getKingW() {
+        return kingW;
+    }
+
+    public void setKingW(King kingW) {
+        this.kingW = kingW;
+    }
+
+    public King getKingB() {
+        return kingB;
+    }
+
+    public void setKingB(King kingB) {
+        this.kingB = kingB;
     }
 }

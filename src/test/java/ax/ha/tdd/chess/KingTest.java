@@ -13,7 +13,7 @@ public class KingTest {
     @BeforeEach
     public void setup() {
         chessboard = new Chessboard();
-        king = new King(Player.WHITE, new Coordinates('d', 4));
+        king = new King(Player.WHITE, new Coordinates('d', 4), chessboard);
         chessboard.addPiece(king);
     }
     @Test
@@ -48,7 +48,7 @@ public class KingTest {
     }
     @Test
     public void canCatch_givenWhiteKing_expectUnableToCatchKing() {
-        King king2 = new King(Player.BLACK, new Coordinates('c',5));
+        King king2 = new King(Player.BLACK, new Coordinates('c',5), chessboard);
         chessboard.addPiece(king2);
         Assertions.assertFalse(king.canCatch(chessboard, king2.getLocation()));
     }

@@ -27,7 +27,7 @@ public class CheckmateTest {
     public void setCheckScenario1() {
         pieces = new ArrayList<>();
         chessboard = new Chessboard();
-        kingW = new King(Player.WHITE, new Coordinates('g', 1));
+        kingW = new King(Player.WHITE, new Coordinates('g', 1), chessboard);
         rookW1 = new Rook(Player.WHITE, new Coordinates('f', 1));
         pawnW1 = new Pawn(Player.WHITE, new Coordinates('f', 2));
         pawnW2 = new Pawn(Player.WHITE, new Coordinates('g', 3));
@@ -38,7 +38,7 @@ public class CheckmateTest {
         pawnB3 = new Pawn(Player.BLACK, new Coordinates('c', 7));
         rookB1 = new Rook(Player.BLACK, new Coordinates('a', 5));
         bishopB1 = new Bishop(Player.BLACK, new Coordinates('e', 8));
-        kingB = new King(Player.BLACK, new Coordinates('c', 8));
+        kingB = new King(Player.BLACK, new Coordinates('c', 8), chessboard);
 
         pieces.add(kingW);
         pieces.add(rookW1);
@@ -56,11 +56,27 @@ public class CheckmateTest {
             chessboard.addPiece(c);
         }
     }
+    //https://thechessworld.com/graphics/checkmates/mate2.jpg
+    public void setCheckmateScenario() {
+        pieces = new ArrayList<>();
+        chessboard = new Chessboard();
+        pawnW1 = new Pawn(Player.WHITE, new Coordinates('e', 7));
+        pawnW2 = new Pawn(Player.WHITE, new Coordinates('d', 6));
+        kingW = new King(Player.WHITE, new Coordinates('e', 6), chessboard);
+        kingB = new King(Player.BLACK, new Coordinates('e', 8), chessboard);
+        pieces.add(pawnW1);
+        pieces.add(pawnW2);
+        pieces.add(kingW);
+        pieces.add(kingB);
+        for(ChessPiece c : pieces) {
+            chessboard.addPiece(c);
+        }
+    }
 
     @Test
     public void isCheck_checkScenario1_expectTrue() {
         setCheckScenario1();
-        chessboard.checkLookup(pieces);
+        chessboard.checkLookup();
         Assertions.assertTrue(kingB.isCheck());
         Assertions.assertFalse(kingW.isCheck());
     }
@@ -68,11 +84,11 @@ public class CheckmateTest {
     @Test
     public void isCheck_checkScenario1Modified_expectFalse() {
         setCheckScenario1();
-        chessboard.checkLookup(pieces);
+        chessboard.checkLookup();
         Assertions.assertTrue(kingB.isCheck());
         rookB1.move(chessboard, bishopW1.getLocation());
 
-        chessboard.checkLookup(pieces);
+        chessboard.checkLookup();
         Assertions.assertFalse(kingB.isCheck());
     }
 
@@ -96,7 +112,7 @@ public class CheckmateTest {
 
             }
         }
-        chessboard.checkLookup(pieces);
+        chessboard.checkLookup();
         Assertions.assertFalse(kingB.isCheck());
     }
     @Test
@@ -119,7 +135,7 @@ public class CheckmateTest {
     }
     @Test
     public void checkState_givenCheckMateScenario_expectCheckMate() {
-        setCheckScenario1();
+        setCheckmateScenario();
         Assertions.assertEquals(WinningState.CHECKMATE,
                 WinningConditionChecker.checkState(chessboard, Player.BLACK));
     }

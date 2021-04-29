@@ -255,7 +255,7 @@ public class AllowedMoves {
             }
 
         }
-        if (!incrementingYAxis && position.getYCoordinates() > 0) {
+        if (!incrementingYAxis && position.getYCoordinates() > 1) {
             if (chessboard.getPiece(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 1)) == null) {
                 allowedMovesList.add(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 1));
                 if (position.equals(startCoordinate) && chessboard.getPiece(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 2)) == null

@@ -151,7 +151,7 @@ public class PawnTest {
     }
     @Test
     public void canCatch_givenWhitePawn_expectUnableToCatchKing() {
-        King king2 = new King(Player.BLACK, new Coordinates('a',3));
+        King king2 = new King(Player.BLACK, new Coordinates('a',3), chessboard);
         chessboard.addPiece(king2);
         Assertions.assertFalse(pawn.canCatch(chessboard, king2.getLocation()));
     }
