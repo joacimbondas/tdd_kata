@@ -22,9 +22,9 @@ public class CheckmateTest {
     King kingW;
     King kingB;
     ArrayList<ChessPiece> pieces;
+
     //http://www.chesscorner.com/tutorial/basic/check/checka.gif
-    public void setCheckScenario1()
-    {
+    public void setCheckScenario1() {
         pieces = new ArrayList<>();
         chessboard = new Chessboard();
         kingW = new King(Player.WHITE, new Coordinates('g', 1));
@@ -52,44 +52,52 @@ public class CheckmateTest {
         pieces.add(rookB1);
         pieces.add(bishopB1);
         pieces.add(kingB);
-        for(ChessPiece c : pieces) {
+        for (ChessPiece c : pieces) {
             chessboard.addPiece(c);
         }
     }
 
-
     @Test
     public void isCheck_checkScenario1_expectTrue() {
         setCheckScenario1();
-        for(ChessPiece c : pieces) {
-            c.checkLookup(chessboard);
-        }
+        chessboard.checkLookup(pieces, kingW, kingB);
         Assertions.assertTrue(kingB.isCheck());
         Assertions.assertFalse(kingW.isCheck());
     }
+
     @Test
     public void isCheck_checkScenario1Modified_expectFalse() {
         setCheckScenario1();
-        rookB1.move(chessboard, bishopW1.getLocation());
-        for(int i = 0; i < 8; i++) {
-            for(int j = 0; j < 8; j++) {
-                if(chessboard.getPiece(new Coordinates(i,j))!=null){
-                    chessboard.getPiece(new Coordinates(i,j)).checkLookup(chessboard);
-                }
-            }
-        }
+        chessboard.checkLookup(pieces, kingW, kingB);
         Assertions.assertTrue(kingB.isCheck());
+        rookB1.move(chessboard, bishopW1.getLocation());
+
+        chessboard.checkLookup(pieces, kingW, kingB);
+        Assertions.assertFalse(kingB.isCheck());
     }
+
     @Test
     public void isCheck_possibleToCatchOpponentThatThreatensKing_expectTrue() {
         setCheckScenario1();
-        for(int i = 0; i < 8; i++) {
-            for(int j = 0; j < 8; j++) {
-                if(chessboard.getPiece(new Coordinates(i,j))!=null){
-                    chessboard.getPiece(new Coordinates(i,j)).checkLookup(chessboard);
-                }
+        ArrayList<ChessPiece> threateningPieces = new ArrayList<>();
+        for (ChessPiece c : pieces) {
+            c.checkLookup(chessboard);
+            if (c.isThreateningKing()) {
+                threateningPieces.add(c);
             }
         }
+        if (threateningPieces.size() > 1) {
+            //better move king
+        } else {
+            for (ChessPiece c : pieces) {
+                if(!c.getPlayer().equals(threateningPieces.get(0).getPlayer())) {
+                    c.move(chessboard, threateningPieces.get(0).getLocation());
+                }
+
+            }
+        }
+        chessboard.checkLookup(pieces, kingW, kingB);
+        Assertions.assertFalse(kingB.isCheck());
 
     }
 

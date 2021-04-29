@@ -2,8 +2,10 @@ package ax.ha.tdd.chess;
 
 import ax.ha.tdd.chess.pieces.ChessPiece;
 import ax.ha.tdd.chess.pieces.ChessPieceStub;
+import ax.ha.tdd.chess.pieces.King;
 import ax.ha.tdd.chess.pieces.PieceType;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,6 +39,19 @@ public class Chessboard {
         board[chessPiece.getLocation().getXCoordinates()][chessPiece.getLocation().getYCoordinates()] = null;
     }
 
+    public void checkLookup(ArrayList<ChessPiece> pieces, King kingw, King kingB) {
+        kingB.setCheck(false);
+        kingw.setCheck(false);
+        for (ChessPiece c : pieces) {
+            if(c.isCaught()) {
+                removePiece(c);
+            }
+            else{
+                c.checkLookup(this);
+            }
+
+        }
+    }
     /**
      * Helper method to initialize chessboard with {@link ChessPieceStub}.
      * Basically mirrors all added pieces for both players.
