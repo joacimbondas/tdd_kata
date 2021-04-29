@@ -6,6 +6,7 @@ import ax.ha.tdd.chess.Player;
 
 public class Pawn extends ChessPiece{
     Coordinates startCoordinate;
+    private final String symbol = "P";
     public Pawn(Player player, Coordinates location) {
         super(player, location);
     }
@@ -29,7 +30,7 @@ public class Pawn extends ChessPiece{
     }
     @Override
     public String getSymbol() {
-        return "P";
+        return symbol;
     }
 
     @Override

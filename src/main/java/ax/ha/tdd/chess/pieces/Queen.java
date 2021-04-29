@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Queen extends ChessPiece{
     private final AllowedMoves allowedMoves;
+    private final String symbol = "Q";
     public Queen(Player player, Coordinates location) {
         super(player, location);
         allowedMoves = new AllowedMoves();
@@ -15,7 +16,7 @@ public class Queen extends ChessPiece{
 
     @Override
     public String getSymbol() {
-        return null;
+        return symbol;
     }
 
 
@@ -25,18 +26,16 @@ public class Queen extends ChessPiece{
         allowedMoves.setPosition(location);
         allowedMoves.setChessboard(chessboard);
         allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList("Q");
-        ArrayList<Coordinates> allowedMovesList = allowedMoves.getAllowedMovesList();
-        return allowedMovesList.contains(destination) && allowedMoves.pathIsClear();
+        allowedMoves.setAllowedMovesList(symbol);
+        return allowedMoves.getAllowedMovesList().contains(destination) && allowedMoves.pathIsClear();
     }
     public boolean canCatch(Chessboard chessboard, Coordinates destination) {
 
         allowedMoves.setPosition(location);
         allowedMoves.setChessboard(chessboard);
         allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList("Q");
-        ArrayList<Coordinates> allowedMovesList = allowedMoves.getAllowedMovesList();
-        if(allowedMovesList.contains(destination) && !allowedMoves.pathIsClear()) {
+        allowedMoves.setAllowedMovesList(symbol);
+        if(allowedMoves.getAllowedMovesList().contains(destination) && !allowedMoves.pathIsClear()) {
             return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player);
         }
         return false;

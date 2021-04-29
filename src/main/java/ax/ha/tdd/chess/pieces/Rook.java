@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Rook extends ChessPiece {
     private Coordinates catchCoord;
+    private final String symbol = "R";
     private final AllowedMoves allowedMoves;
     public Rook(Player player, Coordinates location) {
         super(player, location);
@@ -16,7 +17,7 @@ public class Rook extends ChessPiece {
 
     @Override
     public String getSymbol() {
-        return null;
+        return symbol;
     }
 
     public void move(Chessboard chessboard, Coordinates destination) {
@@ -32,50 +33,13 @@ public class Rook extends ChessPiece {
         }
     }
 
-    public Coordinates pathIsClear(Coordinates destination, boolean horizontalMove, Chessboard chessboard) {
-        if(horizontalMove) {
-            int destX = destination.getXCoordinates();
-            int locX = this.location.getXCoordinates();
-            if(destX>locX) {
-                for(int i = locX+1; i <= destX; i++) {
-                    if(chessboard.getPiece(new Coordinates(i, this.location.getYCoordinates()))!=null) {
-                        return new Coordinates(i, this.location.getYCoordinates());
-                    }
-                }
-            } else {
-                for(int i = locX-1; i >= destX; i--) {
-                    if(chessboard.getPiece(new Coordinates(i, this.location.getYCoordinates()))!=null) {
-                        return new Coordinates(i, this.location.getYCoordinates());
-                    }
-                }
-            }
-        } else {
-            int destY = destination.getYCoordinates();
-            int locY = this.location.getYCoordinates();
-            if(destY>locY) {
-                for(int i = locY+1; i <= destY; i++) {
-                    if(chessboard.getPiece(new Coordinates(this.location.getXCoordinates(), i))!=null) {
-                        return new Coordinates(this.location.getXCoordinates(), i);
-                    }
-                }
-            } else {
-                for(int i = locY-1; i >= destY; i--) {
-                    if(chessboard.getPiece(new Coordinates(this.location.getXCoordinates(), i))!=null) {
-                        return new Coordinates(this.location.getXCoordinates(), i);
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
     @Override
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
 
         allowedMoves.setPosition(location);
         allowedMoves.setChessboard(chessboard);
         allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList("R");
+        allowedMoves.setAllowedMovesList(symbol);
         ArrayList<Coordinates> allowedMovesList = allowedMoves.getAllowedMovesList();
         return allowedMovesList.contains(destination) && allowedMoves.pathIsClear();
     }
@@ -83,7 +47,7 @@ public class Rook extends ChessPiece {
         allowedMoves.setPosition(location);
         allowedMoves.setChessboard(chessboard);
         allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList("R");
+        allowedMoves.setAllowedMovesList(symbol);
         ArrayList<Coordinates> allowedMovesList = allowedMoves.getAllowedMovesList();
         if(allowedMovesList.contains(destination) && !allowedMoves.pathIsClear()) {
             return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player);

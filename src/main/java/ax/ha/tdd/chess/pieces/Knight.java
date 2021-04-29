@@ -8,14 +8,14 @@ import java.util.ArrayList;
 
 public class Knight extends ChessPiece {
     private ArrayList<Coordinates> allowedMovesList;
-
+    private final String symbol = "K";
     public Knight(Player player, Coordinates location) {
         super(player, location);
     }
 
     @Override
     public String getSymbol() {
-        return null;
+        return symbol;
     }
 
     public void move(Chessboard chessboard, Coordinates destination) {

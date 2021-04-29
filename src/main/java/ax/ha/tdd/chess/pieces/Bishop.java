@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Bishop extends ChessPiece {
     private final AllowedMoves allowedMoves;
+    private final String symbol = "B";
     public Bishop(Player player, Coordinates location) {
         super(player, location);
         this.allowedMoves = new AllowedMoves();
@@ -15,7 +16,7 @@ public class Bishop extends ChessPiece {
 
     @Override
     public String getSymbol() {
-        return null;
+        return symbol;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class Bishop extends ChessPiece {
         allowedMoves.setPosition(location);
         allowedMoves.setChessboard(chessboard);
         allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList("B");
+        allowedMoves.setAllowedMovesList(symbol);
         ArrayList<Coordinates> allowedMovesList = allowedMoves.getAllowedMovesList();
         return allowedMovesList.contains(destination) && allowedMoves.pathIsClear();
     }
@@ -33,7 +34,7 @@ public class Bishop extends ChessPiece {
         allowedMoves.setPosition(location);
         allowedMoves.setChessboard(chessboard);
         allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList("B");
+        allowedMoves.setAllowedMovesList(symbol);
         ArrayList<Coordinates> allowedMovesList = allowedMoves.getAllowedMovesList();
         if(allowedMovesList.contains(destination) && !allowedMoves.pathIsClear()) {
             return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player);
