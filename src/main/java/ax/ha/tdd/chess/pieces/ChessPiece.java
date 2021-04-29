@@ -10,9 +10,7 @@ public abstract class ChessPiece {
     protected final Player player;
 
     protected Coordinates location;
-
-
-
+    protected boolean hasMoved;
     protected boolean caught;
     protected boolean threatensKing;
 
@@ -24,6 +22,7 @@ public abstract class ChessPiece {
         this.player = player;
         this.location = location;
         this.startCoordinates = location;
+        this.hasMoved = false;
         caught = false;
     }
 
@@ -34,11 +33,13 @@ public abstract class ChessPiece {
             chessboard.removePiece(this);
             this.setLocation(destination);
             chessboard.addPiece(this);
+            this.hasMoved = true;
         }
         else if(canMove(chessboard, destination)) {
             chessboard.removePiece(this);
             this.setLocation(destination);
             chessboard.addPiece(this);
+            this.hasMoved = true;
         }
     }
 

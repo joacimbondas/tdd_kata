@@ -15,6 +15,7 @@ public class Rook extends ChessPiece {
         super(player, location);
         this.allowedMoves = new AllowedMoves();
         allowedMoves.setPlayer(player);
+
     }
 
 
@@ -57,5 +58,39 @@ public class Rook extends ChessPiece {
             allowedMoves.setDestination(c);
             allowedMoves.pathIsClear();
         }
+    }
+    public boolean castling(Chessboard chessboard, King king) {
+        int xCoord = this.getLocation().getXCoordinates();
+        int yCoord = this.getLocation().getYCoordinates();
+        boolean isLegal = false;
+        if(this.location==this.startCoordinates && king.location==king.startCoordinates && !king.hasMoved && !this.hasMoved) {
+           isLegal = true;
+            if(this.location.getXCoordinates()<king.location.getXCoordinates()) {
+
+                for(int i = 1; i <= 3; i++){
+                    if(chessboard.getPiece(new Coordinates(xCoord+i, yCoord))!=null){
+                        isLegal = false;
+                    }
+                }
+                if(isLegal){
+                    this.move(chessboard, new Coordinates(xCoord+3, yCoord));
+                    king.move(chessboard, new Coordinates(king.location.getXCoordinates()-2, king.location.getYCoordinates()));
+                }
+            }
+            else if (this.location.getXCoordinates()>king.location.getXCoordinates()) {
+                for(int i = 2; i < 0; i--) {
+                    if(chessboard.getPiece(new Coordinates(xCoord-i, yCoord))!=null){
+                        isLegal = false;
+                    }
+                }
+                if(isLegal){
+                    this.move(chessboard, new Coordinates(this.getLocation().getXCoordinates()-2, this.getLocation().getYCoordinates()));
+                    king.move(chessboard, new Coordinates(king.location.getXCoordinates()+2, king.location.getYCoordinates()));
+                }
+
+            }
+
+        }
+        return isLegal;
     }
 }

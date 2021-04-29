@@ -98,7 +98,6 @@ public class CheckmateTest {
         }
         chessboard.checkLookup(pieces, kingW, kingB);
         Assertions.assertFalse(kingB.isCheck());
-
     }
 
 }
