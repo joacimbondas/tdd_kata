@@ -41,4 +41,14 @@ public class Queen extends ChessPiece{
         }
         return false;
     }
+    @Override
+    public void checkLookup(Chessboard chessboard) {
+        allowedMoves.setPosition(location);
+        allowedMoves.setChessboard(chessboard);
+        allowedMoves.setAllowedMovesList(symbol);
+        for(Coordinates c : allowedMoves.getAllowedMovesList()) {
+            allowedMoves.setDestination(c);
+            allowedMoves.pathIsClear();
+        }
+    }
 }

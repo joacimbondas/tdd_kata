@@ -47,4 +47,14 @@ public class Knight extends ChessPiece {
         allowedMoves.setAllowedMovesList(symbol);
         return allowedMoves.getAllowedMovesList().contains(destination) && allowedMoves.pathIsClear();
     }
+    @Override
+    public void checkLookup(Chessboard chessboard) {
+        allowedMoves.setPosition(location);
+        allowedMoves.setChessboard(chessboard);
+        allowedMoves.setAllowedMovesList(symbol);
+        for(Coordinates c : allowedMoves.getAllowedMovesList()) {
+            allowedMoves.setDestination(c);
+            allowedMoves.pathIsClear();
+        }
+    }
 }

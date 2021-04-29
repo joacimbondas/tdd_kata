@@ -11,6 +11,15 @@ public abstract class ChessPiece {
 
     protected Coordinates location;
 
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+
+    protected boolean check;
     protected Coordinates startCoordinates;
 
     public ChessPiece(final Player player,
@@ -49,7 +58,7 @@ public abstract class ChessPiece {
      * @return true if piece can move to the destination
      */
     public abstract boolean canMove(final Chessboard chessboard, final Coordinates destination);
-
+    public abstract void checkLookup(Chessboard chessboard);
     @Override
     public String toString() {
         return getPlayer().name() + " " + getClass().getSimpleName();

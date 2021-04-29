@@ -47,6 +47,13 @@ public class PawnTest {
         Assertions.assertTrue(pawn.canMove(chessboard, new Coordinates('b',5)));
     }
     @Test
+    public void canMove_givenWhitePawnFirstMove_unableToMoveTwoStepsIfFirstSquareIsOccupied() {
+        chessboard.addPiece(pawn);
+        Pawn pawn1 = new Pawn(Player.BLACK, new Coordinates('b', 3));
+        chessboard.addPiece(pawn1);
+        Assertions.assertFalse(pawn.canMove(chessboard, new Coordinates('b',4)));
+    }
+    @Test
     public void canMove_givenBlackPawnNotFirstMove_unableToMoveTwoSteps() {
         chessboard = new Chessboard();
         pawn = new Pawn(Player.BLACK, new Coordinates('b',7));

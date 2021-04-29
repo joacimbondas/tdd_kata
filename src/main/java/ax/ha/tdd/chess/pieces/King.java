@@ -11,9 +11,11 @@ public class King extends ChessPiece {
     private final AllowedMoves allowedMoves;
     private ArrayList<Coordinates> allowedMovesList;
 
+    private boolean check;
     public King(Player player, Coordinates location) {
         super(player, location);
         allowedMoves = new AllowedMoves();
+        check = false;
     }
 
     @Override
@@ -40,5 +42,22 @@ public class King extends ChessPiece {
                     !chessboard.getPiece(allowedMoves.getObstacle()).getSymbol().equals("K");
         }
         return false;
+    }
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+    @Override
+    public void checkLookup(Chessboard chessboard) {
+        allowedMoves.setPosition(location);
+        allowedMoves.setChessboard(chessboard);
+        allowedMoves.setAllowedMovesList(symbol);
+        for(Coordinates c : allowedMoves.getAllowedMovesList()) {
+            allowedMoves.setDestination(c);
+            allowedMoves.pathIsClear();
+        }
     }
 }
