@@ -60,7 +60,7 @@ public class CheckmateTest {
     @Test
     public void isCheck_checkScenario1_expectTrue() {
         setCheckScenario1();
-        chessboard.checkLookup(pieces, kingW, kingB);
+        chessboard.checkLookup(pieces);
         Assertions.assertTrue(kingB.isCheck());
         Assertions.assertFalse(kingW.isCheck());
     }
@@ -68,11 +68,11 @@ public class CheckmateTest {
     @Test
     public void isCheck_checkScenario1Modified_expectFalse() {
         setCheckScenario1();
-        chessboard.checkLookup(pieces, kingW, kingB);
+        chessboard.checkLookup(pieces);
         Assertions.assertTrue(kingB.isCheck());
         rookB1.move(chessboard, bishopW1.getLocation());
 
-        chessboard.checkLookup(pieces, kingW, kingB);
+        chessboard.checkLookup(pieces);
         Assertions.assertFalse(kingB.isCheck());
     }
 
@@ -96,8 +96,31 @@ public class CheckmateTest {
 
             }
         }
-        chessboard.checkLookup(pieces, kingW, kingB);
+        chessboard.checkLookup(pieces);
         Assertions.assertFalse(kingB.isCheck());
     }
-
+    @Test
+    public void checkState_givenDefaultBoardAndBlackPlayer_expectPlaying() {
+        Assertions.assertEquals(WinningState.PLAYING,
+                WinningConditionChecker.checkState(Chessboard.fullBoard(), Player.BLACK));
+    }
+    @Test
+    public void checkState_givenCheckScenario_expectCheck() {
+        setCheckScenario1();
+        Assertions.assertEquals(WinningState.CHECK,
+                WinningConditionChecker.checkState(chessboard, Player.BLACK));
+    }
+    @Test
+    public void checkState_givenPreviouslyCheckMateScenario_expectPlaying() {
+        setCheckScenario1();
+        kingB.move(chessboard, new Coordinates('b',8));
+        Assertions.assertEquals(WinningState.PLAYING,
+                WinningConditionChecker.checkState(chessboard, Player.BLACK));
+    }
+    @Test
+    public void checkState_givenCheckMateScenario_expectCheckMate() {
+        setCheckScenario1();
+        Assertions.assertEquals(WinningState.CHECKMATE,
+                WinningConditionChecker.checkState(chessboard, Player.BLACK));
+    }
 }

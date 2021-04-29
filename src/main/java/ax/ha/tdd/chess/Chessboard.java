@@ -10,12 +10,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Chessboard {
+
     // This could just as easily be replaced with a List or Set,
     // since the ChessPieces right now keep track of their own location.
     // Feel free to change this however you like
+
     private final ChessPiece[][] board = new ChessPiece[8][8];
 
     public static Chessboard fullBoard() {
+
         final Chessboard chessboard = new Chessboard();
 
         chessboard.withMirroredPiece(PieceType.PAWN.getSymbol(), 1, Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7))
@@ -39,9 +42,11 @@ public class Chessboard {
         board[chessPiece.getLocation().getXCoordinates()][chessPiece.getLocation().getYCoordinates()] = null;
     }
 
-    public void checkLookup(ArrayList<ChessPiece> pieces, King kingw, King kingB) {
-        kingB.setCheck(false);
-        kingw.setCheck(false);
+    public void checkLookup(ArrayList<ChessPiece> pieces) {
+
+        for (ChessPiece c : pieces) {
+            c.setCheck(false);
+        }
         for (ChessPiece c : pieces) {
             if(c.isCaught()) {
                 removePiece(c);
@@ -49,7 +54,6 @@ public class Chessboard {
             else{
                 c.checkLookup(this);
             }
-
         }
     }
     /**
