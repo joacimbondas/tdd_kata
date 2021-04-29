@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Knight extends ChessPiece {
     private ArrayList<Coordinates> allowedMovesList;
-    private final String symbol = "K";
+    private final String symbol = "k";
     public Knight(Player player, Coordinates location) {
         super(player, location);
     }
