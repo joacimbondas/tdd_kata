@@ -4,10 +4,14 @@ import ax.ha.tdd.chess.Chessboard;
 import ax.ha.tdd.chess.Coordinates;
 import ax.ha.tdd.chess.Player;
 
+import java.util.ArrayList;
+
 public class Rook extends ChessPiece {
     private Coordinates catchCoord;
+    private final AllowedMoves allowedMoves;
     public Rook(Player player, Coordinates location) {
         super(player, location);
+        this.allowedMoves = new AllowedMoves();
     }
 
     @Override
@@ -67,41 +71,22 @@ public class Rook extends ChessPiece {
 
     @Override
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
-        if(this.getLocation().getXCoordinates() != destination.getXCoordinates() && this.getLocation().getYCoordinates() != destination.getYCoordinates()) {
-            return false;
-        }
-        if (this.getLocation().getXCoordinates() == (destination.getXCoordinates())) {
-            if(pathIsClear(destination, false, chessboard)!=null) {
-                return false;
-            }
-        }
-        if (this.getLocation().getYCoordinates() == (destination.getYCoordinates())) {
-            if(pathIsClear(destination, true, chessboard)!=null) {
-                return false;
-            }
-        }
-        return chessboard.getPiece(destination) == null;
+
+        allowedMoves.setPosition(location);
+        allowedMoves.setChessboard(chessboard);
+        allowedMoves.setDestination(destination);
+        allowedMoves.setAllowedMovesList("R");
+        ArrayList<Coordinates> allowedMovesList = allowedMoves.getAllowedMovesList();
+        return allowedMovesList.contains(destination) && allowedMoves.pathIsClear();
     }
     public boolean canCatch(Chessboard chessboard, Coordinates destination) {
-        if (this.getLocation().getXCoordinates() == (destination.getXCoordinates())) {
-            if(pathIsClear(destination, false, chessboard)!=null) {
-                if(!chessboard.getPiece(pathIsClear(destination, false, chessboard)).getPlayer().equals(this.player)) {
-                    catchCoord = pathIsClear(destination, false, chessboard);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        if (this.getLocation().getYCoordinates() == (destination.getYCoordinates())) {
-            if(pathIsClear(destination, true, chessboard)!=null) {
-                if(!chessboard.getPiece(pathIsClear(destination, true, chessboard)).getPlayer().equals(this.player)) {
-                    catchCoord = pathIsClear(destination, true, chessboard);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+        allowedMoves.setPosition(location);
+        allowedMoves.setChessboard(chessboard);
+        allowedMoves.setDestination(destination);
+        allowedMoves.setAllowedMovesList("R");
+        ArrayList<Coordinates> allowedMovesList = allowedMoves.getAllowedMovesList();
+        if(allowedMovesList.contains(destination) && !allowedMoves.pathIsClear()) {
+            return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player);
         }
         return false;
     }

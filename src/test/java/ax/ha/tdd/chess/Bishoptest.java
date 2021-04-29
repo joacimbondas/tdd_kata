@@ -1,7 +1,6 @@
 package ax.ha.tdd.chess;
 
 import ax.ha.tdd.chess.pieces.Bishop;
-import ax.ha.tdd.chess.pieces.Knight;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

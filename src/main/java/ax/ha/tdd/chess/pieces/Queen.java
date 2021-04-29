@@ -6,11 +6,11 @@ import ax.ha.tdd.chess.Player;
 
 import java.util.ArrayList;
 
-public class Bishop extends ChessPiece {
+public class Queen extends ChessPiece{
     private final AllowedMoves allowedMoves;
-    public Bishop(Player player, Coordinates location) {
+    public Queen(Player player, Coordinates location) {
         super(player, location);
-        this.allowedMoves = new AllowedMoves();
+        allowedMoves = new AllowedMoves();
     }
 
     @Override
@@ -18,13 +18,14 @@ public class Bishop extends ChessPiece {
         return null;
     }
 
+
     @Override
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
 
         allowedMoves.setPosition(location);
         allowedMoves.setChessboard(chessboard);
         allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList("B");
+        allowedMoves.setAllowedMovesList("Q");
         ArrayList<Coordinates> allowedMovesList = allowedMoves.getAllowedMovesList();
         return allowedMovesList.contains(destination) && allowedMoves.pathIsClear();
     }
@@ -33,7 +34,7 @@ public class Bishop extends ChessPiece {
         allowedMoves.setPosition(location);
         allowedMoves.setChessboard(chessboard);
         allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList("B");
+        allowedMoves.setAllowedMovesList("Q");
         ArrayList<Coordinates> allowedMovesList = allowedMoves.getAllowedMovesList();
         if(allowedMovesList.contains(destination) && !allowedMoves.pathIsClear()) {
             return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player);
