@@ -13,6 +13,7 @@ public class Rook extends ChessPiece {
     public Rook(Player player, Coordinates location) {
         super(player, location);
         this.allowedMoves = new AllowedMoves();
+        allowedMoves.setPlayer(player);
     }
 
     @Override

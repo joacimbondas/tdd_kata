@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 public class CheckmateTest {
     private Chessboard chessboard;
     Pawn pawnW1;
@@ -19,10 +21,11 @@ public class CheckmateTest {
     Rook rookW1;
     King kingW;
     King kingB;
-
+    ArrayList<ChessPiece> pieces;
     //http://www.chesscorner.com/tutorial/basic/check/checka.gif
     public void setCheckScenario1()
     {
+        pieces = new ArrayList<>();
         chessboard = new Chessboard();
         kingW = new King(Player.WHITE, new Coordinates('g', 1));
         rookW1 = new Rook(Player.WHITE, new Coordinates('f', 1));
@@ -37,32 +40,32 @@ public class CheckmateTest {
         bishopB1 = new Bishop(Player.BLACK, new Coordinates('e', 8));
         kingB = new King(Player.BLACK, new Coordinates('c', 8));
 
-        chessboard.addPiece(kingW);
-        chessboard.addPiece(rookW1);
-        chessboard.addPiece(pawnW1);
-        chessboard.addPiece(pawnW2);
-        chessboard.addPiece(pawnW3);
-        chessboard.addPiece(bishopW1);
-        chessboard.addPiece(pawnB1);
-        chessboard.addPiece(pawnB2);
-        chessboard.addPiece(pawnB3);
-        chessboard.addPiece(rookB1);
-        chessboard.addPiece(bishopB1);
-        chessboard.addPiece(kingB);
+        pieces.add(kingW);
+        pieces.add(rookW1);
+        pieces.add(pawnW1);
+        pieces.add(pawnW2);
+        pieces.add(pawnW3);
+        pieces.add(bishopW1);
+        pieces.add(pawnB1);
+        pieces.add(pawnB2);
+        pieces.add(pawnB3);
+        pieces.add(rookB1);
+        pieces.add(bishopB1);
+        pieces.add(kingB);
+        for(ChessPiece c : pieces) {
+            chessboard.addPiece(c);
+        }
     }
 
 
     @Test
     public void isCheck_checkScenario1_expectTrue() {
         setCheckScenario1();
-        for(int i = 0; i < 8; i++) {
-            for(int j = 0; j < 8; j++) {
-                if(chessboard.getPiece(new Coordinates(i,j))!=null){
-                    chessboard.getPiece(new Coordinates(i,j)).checkLookup(chessboard);
-                }
-            }
+        for(ChessPiece c : pieces) {
+            c.checkLookup(chessboard);
         }
         Assertions.assertTrue(kingB.isCheck());
+        Assertions.assertFalse(kingW.isCheck());
     }
     @Test
     public void isCheck_checkScenario1Modified_expectFalse() {
@@ -76,6 +79,18 @@ public class CheckmateTest {
             }
         }
         Assertions.assertTrue(kingB.isCheck());
+    }
+    @Test
+    public void isCheck_possibleToCatchOpponentThatThreatensKing_expectTrue() {
+        setCheckScenario1();
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                if(chessboard.getPiece(new Coordinates(i,j))!=null){
+                    chessboard.getPiece(new Coordinates(i,j)).checkLookup(chessboard);
+                }
+            }
+        }
+
     }
 
 }

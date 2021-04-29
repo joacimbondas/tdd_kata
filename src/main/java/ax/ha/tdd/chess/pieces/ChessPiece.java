@@ -11,13 +11,9 @@ public abstract class ChessPiece {
 
     protected Coordinates location;
 
-    public boolean isCheck() {
-        return check;
-    }
 
-    public void setCheck(boolean check) {
-        this.check = check;
-    }
+
+    protected boolean threatensKing;
 
     protected boolean check;
     protected Coordinates startCoordinates;
@@ -72,5 +68,19 @@ public void move(Chessboard chessboard, Coordinates destination) {
     @Override
     public String toString() {
         return getPlayer().name() + " " + getClass().getSimpleName();
+    }
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+    public boolean isThreateningKing() {
+        return threatensKing;
+    }
+
+    public void setThreatensKing(boolean threatensKing) {
+        this.threatensKing = threatensKing;
     }
 }

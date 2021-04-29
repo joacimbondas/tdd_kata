@@ -12,6 +12,7 @@ public class Queen extends ChessPiece{
     public Queen(Player player, Coordinates location) {
         super(player, location);
         allowedMoves = new AllowedMoves();
+        allowedMoves.setPlayer(player);
     }
 
     @Override

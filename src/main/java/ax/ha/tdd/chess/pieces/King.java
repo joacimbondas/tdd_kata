@@ -15,6 +15,7 @@ public class King extends ChessPiece {
     public King(Player player, Coordinates location) {
         super(player, location);
         allowedMoves = new AllowedMoves();
+        allowedMoves.setPlayer(player);
         check = false;
     }
 

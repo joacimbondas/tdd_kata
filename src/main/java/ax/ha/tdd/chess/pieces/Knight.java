@@ -12,6 +12,7 @@ public class Knight extends ChessPiece {
     public Knight(Player player, Coordinates location) {
         super(player, location);
         allowedMoves = new AllowedMoves();
+        allowedMoves.setPlayer(player);
     }
 
     @Override

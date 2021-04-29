@@ -24,9 +24,7 @@ public class AllowedMoves {
     private Coordinates startCoordinate;
     private String symbol;
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
+
 
     private Player player;
 
@@ -182,8 +180,9 @@ public class AllowedMoves {
             if (!c.equals(this.position)) {
                 if (chessboard.getPiece(c) != null) {
                     obstacle = c;
-                    if (chessboard.getPiece(c).getSymbol().equals("K")) {
+                    if (chessboard.getPiece(c).getSymbol().equals("K") && !chessboard.getPiece(c).getPlayer().equals(this.player)) {
                         chessboard.getPiece(c).setCheck(true);
+                        chessboard.getPiece(position).setThreatensKing(true);
                     }
                     return false;
                 }
@@ -285,5 +284,8 @@ public class AllowedMoves {
 
     public void setStartCoordinate(Coordinates startCoordinate) {
         this.startCoordinate = startCoordinate;
+    }
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

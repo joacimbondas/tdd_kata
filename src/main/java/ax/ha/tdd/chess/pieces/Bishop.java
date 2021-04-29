@@ -12,6 +12,7 @@ public class Bishop extends ChessPiece {
     public Bishop(Player player, Coordinates location) {
         super(player, location);
         this.allowedMoves = new AllowedMoves();
+        allowedMoves.setPlayer(player);
     }
 
 
