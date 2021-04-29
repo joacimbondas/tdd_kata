@@ -20,19 +20,6 @@ public class Rook extends ChessPiece {
         return symbol;
     }
 
-    public void move(Chessboard chessboard, Coordinates destination) {
-        if(canCatch(chessboard, destination)) {
-            chessboard.removePiece(this);
-            this.setLocation(catchCoord);
-            chessboard.addPiece(this);
-        }
-        else if(canMove(chessboard,destination)) {
-            chessboard.removePiece(this);
-            this.setLocation(destination);
-            chessboard.addPiece(this);
-        }
-    }
-
     @Override
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
 

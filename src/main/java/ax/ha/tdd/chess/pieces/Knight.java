@@ -19,14 +19,6 @@ public class Knight extends ChessPiece {
         return symbol;
     }
 
-    public void move(Chessboard chessboard, Coordinates destination) {
-        if(canMove(chessboard,destination)) {
-            chessboard.removePiece(this);
-            this.setLocation(destination);
-            chessboard.addPiece(this);
-        }
-    }
-
     public boolean canCatch(Chessboard chessboard, Coordinates destination) {
         allowedMoves.setPosition(location);
         allowedMoves.setChessboard(chessboard);

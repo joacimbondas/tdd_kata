@@ -28,7 +28,16 @@ public abstract class ChessPiece {
         this.location = location;
         this.startCoordinates = location;
     }
-
+public void move(Chessboard chessboard, Coordinates destination) {
+    if(canMove(chessboard, destination)) {
+        if(canCatch(chessboard, destination)) {
+            chessboard.removePiece(chessboard.getPiece(destination));
+        }
+        chessboard.removePiece(this);
+        this.setLocation(destination);
+        chessboard.addPiece(this);
+    }
+}
     public abstract String getSymbol();
 
     public Player getPlayer() {
@@ -58,6 +67,7 @@ public abstract class ChessPiece {
      * @return true if piece can move to the destination
      */
     public abstract boolean canMove(final Chessboard chessboard, final Coordinates destination);
+    public abstract boolean canCatch(Chessboard chessboard, Coordinates destination);
     public abstract void checkLookup(Chessboard chessboard);
     @Override
     public String toString() {

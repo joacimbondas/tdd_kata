@@ -19,13 +19,7 @@ public class Pawn extends ChessPiece{
         allowedMoves.setPlayer(this.player);
     }
 
-    public void move(Chessboard chessboard, Coordinates destination) {
-        if(canMove(chessboard,destination)||canCatch(chessboard,destination)) {
-            chessboard.removePiece(this);
-            this.setLocation(destination);
-            chessboard.addPiece(this);
-        }
-    }
+
 
     @Override
     public String getSymbol() {

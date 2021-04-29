@@ -64,5 +64,18 @@ public class CheckmateTest {
         }
         Assertions.assertTrue(kingB.isCheck());
     }
+    @Test
+    public void isCheck_checkScenario1Modified_expectFalse() {
+        setCheckScenario1();
+        rookB1.move(chessboard, bishopW1.getLocation());
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                if(chessboard.getPiece(new Coordinates(i,j))!=null){
+                    chessboard.getPiece(new Coordinates(i,j)).checkLookup(chessboard);
+                }
+            }
+        }
+        Assertions.assertTrue(kingB.isCheck());
+    }
 
 }

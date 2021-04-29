@@ -30,6 +30,11 @@ public class ChessPieceStub extends ChessPiece {
     }
 
     @Override
+    public boolean canCatch(Chessboard chessboard, Coordinates destination) {
+        return false;
+    }
+
+    @Override
     public void checkLookup(Chessboard chessboard) {
 
     }

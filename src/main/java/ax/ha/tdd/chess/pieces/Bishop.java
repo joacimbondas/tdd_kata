@@ -14,6 +14,8 @@ public class Bishop extends ChessPiece {
         this.allowedMoves = new AllowedMoves();
     }
 
+
+
     @Override
     public String getSymbol() {
         return symbol;
