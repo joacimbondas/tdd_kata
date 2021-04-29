@@ -23,7 +23,8 @@ public class Pawn extends ChessPiece{
         if((this.location.getYCoordinates()-destination.getYCoordinates()==1 && !incrementingYAxis) ||
                 (destination.getYCoordinates()-this.location.getYCoordinates()==1 && incrementingYAxis)) {
             if(Math.abs(this.location.getXCoordinates()-destination.getXCoordinates())==1) {
-                return chessboard.getPiece(destination) != null && !chessboard.getPiece(destination).getPlayer().equals(this.player);
+                return chessboard.getPiece(destination) != null && !chessboard.getPiece(destination).getPlayer().equals(this.player) &&
+                        !chessboard.getPiece(destination).getSymbol().equals("K");
             }
         }
         return false;

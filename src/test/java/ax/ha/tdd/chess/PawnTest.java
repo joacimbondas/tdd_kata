@@ -1,5 +1,6 @@
 package ax.ha.tdd.chess;
 
+import ax.ha.tdd.chess.pieces.King;
 import ax.ha.tdd.chess.pieces.Pawn;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -140,5 +141,11 @@ public class PawnTest {
         chessboard.addPiece(whitePawn);
         Assertions.assertFalse(pawn.canCatch(chessboard, whitePawn.getLocation()));
         Assertions.assertFalse(pawn.canMove(chessboard, whitePawn.getLocation()));
+    }
+    @Test
+    public void canCatch_givenWhitePawn_expectUnableToCatchKing() {
+        King king2 = new King(Player.BLACK, new Coordinates('a',3));
+        chessboard.addPiece(king2);
+        Assertions.assertFalse(pawn.canCatch(chessboard, king2.getLocation()));
     }
 }

@@ -41,9 +41,15 @@ public class KingTest {
         Assertions.assertFalse(king.canMove(chessboard, knight2.getLocation()));
     }
     @Test
-    public void canCatch_givenWhiteKnight_expectAbleToCatchBlack() {
+    public void canCatch_givenWhiteKing_expectAbleToCatchBlack() {
         Knight knight2 = new Knight(Player.BLACK, new Coordinates('c',5));
         chessboard.addPiece(knight2);
         Assertions.assertTrue(king.canCatch(chessboard, knight2.getLocation()));
+    }
+    @Test
+    public void canCatch_givenWhiteKing_expectUnableToCatchKing() {
+        King king2 = new King(Player.BLACK, new Coordinates('c',5));
+        chessboard.addPiece(king2);
+        Assertions.assertFalse(king.canCatch(chessboard, king2.getLocation()));
     }
 }

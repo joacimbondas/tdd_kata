@@ -1,6 +1,8 @@
 package ax.ha.tdd.chess;
 
 import ax.ha.tdd.chess.pieces.Bishop;
+import ax.ha.tdd.chess.pieces.King;
+import ax.ha.tdd.chess.pieces.Pawn;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -69,6 +71,12 @@ public class Bishoptest {
         Bishop bishop1 = new Bishop(Player.WHITE, new Coordinates('c',5));
         chessboard.addPiece(bishop1);
         Assertions.assertFalse(bishop.canCatch(chessboard, bishop1.getLocation()));
+    }
+    @Test
+    public void canCatch_givenWhiteBishop_expectUnableToCatchKing() {
+        King king2 = new King(Player.BLACK, new Coordinates('c',5));
+        chessboard.addPiece(king2);
+        Assertions.assertFalse(bishop.canCatch(chessboard, king2.getLocation()));
     }
 
 

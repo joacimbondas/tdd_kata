@@ -18,7 +18,7 @@ public class AllowedMoves {
     private ArrayList<Coordinates> horizontal;
     private Chessboard chessboard;
     private Coordinates destination;
-
+    private String symbol;
 
 
     private Coordinates obstacle;
@@ -102,12 +102,46 @@ public class AllowedMoves {
         }
 
     }
+    public void setAllowedMovesListKing() {
+        int[] xCoord = {1, 0, -1};
+        int[] yCoord = {1, 0, -1};
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                allowedMovesList.add(new Coordinates(this.position.getXCoordinates() + xCoord[i],
+                        this.position.getYCoordinates() + yCoord[j]));
+            }
+        }
+    }
+    public void setAllowedMovesListKnight() {
+        allowedMovesList.add(new Coordinates(position.getXCoordinates() + 1, position.getYCoordinates() + 2));
+        allowedMovesList.add(new Coordinates(position.getXCoordinates() + 1, position.getYCoordinates() - 2));
+        allowedMovesList.add(new Coordinates(position.getXCoordinates() - 1, position.getYCoordinates() + 2));
+        allowedMovesList.add(new Coordinates(position.getXCoordinates() - 1, position.getYCoordinates() - 2));
+        allowedMovesList.add(new Coordinates(position.getXCoordinates() + 2, position.getYCoordinates() + 1));
+        allowedMovesList.add(new Coordinates(position.getXCoordinates() + 2, position.getYCoordinates() - 1));
+        allowedMovesList.add(new Coordinates(position.getXCoordinates() - 2, position.getYCoordinates() + 1));
+        allowedMovesList.add(new Coordinates(position.getXCoordinates() - 2, position.getYCoordinates() - 1));
+    }
     public boolean pathIsClear() {
 
         int destX = destination.getXCoordinates();
         int destY = destination.getYCoordinates();
         int locX = this.position.getXCoordinates();
         int locY = this.position.getYCoordinates();
+        if(symbol.equals("K")) {
+            ArrayList<Coordinates> arr = new ArrayList<>();
+            arr.add(destination);
+            return checkPath(arr, chessboard, destination);
+        }
+        if(symbol.equals("k")) {
+            if(chessboard.getPiece(destination)!=null) {
+                obstacle = destination;
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
         if (destY < locY && destX > locX) {
             return checkPath(upRight, chessboard, destination);
         }
@@ -156,6 +190,7 @@ public class AllowedMoves {
     }
     public void setAllowedMovesList(String symbol) {
         this.allowedMovesList = new ArrayList<>();
+        this.symbol = symbol;
         if(symbol.equals("B")){
             setAllowedMovesListDiagonal();
         }
@@ -165,6 +200,12 @@ public class AllowedMoves {
         if(symbol.equals("Q")) {
             setAllowedMovesListStraight();
             setAllowedMovesListDiagonal();
+        }
+        if(symbol.equals("K")) {
+            setAllowedMovesListKing();
+        }
+        if(symbol.equals("k")) {
+            setAllowedMovesListKnight();
         }
     }
     public Coordinates getObstacle() {

@@ -1,6 +1,7 @@
 package ax.ha.tdd.chess;
 
 
+import ax.ha.tdd.chess.pieces.King;
 import ax.ha.tdd.chess.pieces.Pawn;
 import ax.ha.tdd.chess.pieces.Rook;
 import org.junit.jupiter.api.Assertions;
@@ -75,6 +76,11 @@ public class RookTest {
         chessboard.addPiece(friendlyRook);
         Assertions.assertFalse(rook.canCatch(chessboard, rook1.getLocation()));
     }
-
+    @Test
+    public void canCatch_givenWhiteRook_expectUnableToCatchKing() {
+        King king2 = new King(Player.BLACK, new Coordinates('a',3));
+        chessboard.addPiece(king2);
+        Assertions.assertFalse(rook.canCatch(chessboard, king2.getLocation()));
+    }
 
 }

@@ -36,7 +36,8 @@ public class Queen extends ChessPiece{
         allowedMoves.setDestination(destination);
         allowedMoves.setAllowedMovesList(symbol);
         if(allowedMoves.getAllowedMovesList().contains(destination) && !allowedMoves.pathIsClear()) {
-            return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player);
+            return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player) &&
+                    !chessboard.getPiece(allowedMoves.getObstacle()).getSymbol().equals("K");
         }
         return false;
     }

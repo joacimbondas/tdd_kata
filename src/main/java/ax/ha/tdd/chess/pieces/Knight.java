@@ -7,10 +7,11 @@ import ax.ha.tdd.chess.Player;
 import java.util.ArrayList;
 
 public class Knight extends ChessPiece {
-    private ArrayList<Coordinates> allowedMovesList;
     private final String symbol = "k";
+    private final AllowedMoves allowedMoves;
     public Knight(Player player, Coordinates location) {
         super(player, location);
+        allowedMoves = new AllowedMoves();
     }
 
     @Override
@@ -26,32 +27,24 @@ public class Knight extends ChessPiece {
         }
     }
 
-    public void setAllowedMovesList() {
-        allowedMovesList = new ArrayList<>();
-        allowedMovesList.add(new Coordinates(location.getXCoordinates() + 1, location.getYCoordinates() + 2));
-        allowedMovesList.add(new Coordinates(location.getXCoordinates() + 1, location.getYCoordinates() - 2));
-        allowedMovesList.add(new Coordinates(location.getXCoordinates() - 1, location.getYCoordinates() + 2));
-        allowedMovesList.add(new Coordinates(location.getXCoordinates() - 1, location.getYCoordinates() - 2));
-        allowedMovesList.add(new Coordinates(location.getXCoordinates() + 2, location.getYCoordinates() + 1));
-        allowedMovesList.add(new Coordinates(location.getXCoordinates() + 2, location.getYCoordinates() - 1));
-        allowedMovesList.add(new Coordinates(location.getXCoordinates() - 2, location.getYCoordinates() + 1));
-        allowedMovesList.add(new Coordinates(location.getXCoordinates() - 2, location.getYCoordinates() - 1));
-    }
-
     public boolean canCatch(Chessboard chessboard, Coordinates destination) {
-        setAllowedMovesList();
-        if (chessboard.getPiece(destination) == null) {
-            return false;
+        allowedMoves.setPosition(location);
+        allowedMoves.setChessboard(chessboard);
+        allowedMoves.setDestination(destination);
+        allowedMoves.setAllowedMovesList(symbol);
+        if(allowedMoves.getAllowedMovesList().contains(destination) && !allowedMoves.pathIsClear()) {
+            return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player) &&
+                    !chessboard.getPiece(allowedMoves.getObstacle()).getSymbol().equals("K");
         }
-        return !chessboard.getPiece(destination).getPlayer().equals(this.player) && allowedMovesList.contains(destination);
+        return false;
     }
 
     @Override
     public boolean canMove(Chessboard chessboard, Coordinates destination) {
-        setAllowedMovesList();
-        if (chessboard.getPiece(destination) != null && chessboard.getPiece(destination).getPlayer().equals(this.player)) {
-            return false;
-        }
-        return allowedMovesList.contains(destination);
+        allowedMoves.setPosition(location);
+        allowedMoves.setChessboard(chessboard);
+        allowedMoves.setDestination(destination);
+        allowedMoves.setAllowedMovesList(symbol);
+        return allowedMoves.getAllowedMovesList().contains(destination) && allowedMoves.pathIsClear();
     }
 }

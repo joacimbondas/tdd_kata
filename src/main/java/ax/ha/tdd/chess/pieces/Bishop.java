@@ -37,7 +37,8 @@ public class Bishop extends ChessPiece {
         allowedMoves.setAllowedMovesList(symbol);
         ArrayList<Coordinates> allowedMovesList = allowedMoves.getAllowedMovesList();
         if(allowedMovesList.contains(destination) && !allowedMoves.pathIsClear()) {
-            return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player);
+            return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player) &&
+                    !chessboard.getPiece(allowedMoves.getObstacle()).getSymbol().equals("K");
         }
         return false;
     }
