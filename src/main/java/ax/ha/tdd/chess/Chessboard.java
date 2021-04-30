@@ -19,7 +19,11 @@ public class Chessboard {
     private King kingW;
     private King kingB;
     private final ChessPiece[][] board = new ChessPiece[8][8];
+
+
+
     private static ArrayList<ChessPiece> pieces;
+
     public static Chessboard fullBoard() {
     pieces = new ArrayList<>();
         final Chessboard chessboard = new Chessboard();
@@ -103,5 +107,8 @@ public class Chessboard {
 
     public void setKingB(King kingB) {
         this.kingB = kingB;
+    }
+    public static ArrayList<ChessPiece> getPieces() {
+        return pieces;
     }
 }

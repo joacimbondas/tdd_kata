@@ -7,29 +7,29 @@ import java.util.ArrayList;
 
 public class WinningConditionChecker {
     private static ArrayList<ChessPiece> pieces;
-    private static King king;
+
     public static WinningState checkState(Chessboard chessboard, Player player) {
         pieces = new ArrayList<>();
         setAllPiecesList(chessboard);
-        chessboard.checkLookup();
-
-        if(checkCheckmate(chessboard, player)){
+        if (checkCheckmate(chessboard, player)) {
             return WinningState.CHECKMATE;
         }
-        chessboard.checkLookup();
-        if(checkCheck(chessboard, player)){
+        if (checkCheck(chessboard)) {
             return WinningState.CHECK;
         }
         return WinningState.PLAYING;
     }
-    public static boolean checkCheck(Chessboard chessboard, Player player) {
-        for(ChessPiece c : pieces) {
-            if(c.isCheck() || c.isThreateningKing()) {
+
+    public static boolean checkCheck(Chessboard chessboard) {
+        chessboard.checkLookup();
+        for (ChessPiece c : pieces) {
+            if (c.isCheck() || c.isThreateningKing()) {
                 return true;
             }
         }
         return false;
     }
+
     public static void setAllPiecesList(Chessboard chessboard) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -39,29 +39,23 @@ public class WinningConditionChecker {
             }
         }
     }
+
     public static boolean checkCheckmate(Chessboard chessboard, Player player) {
         King king;
-        if(player.equals(Player.WHITE)) {
+        if (player.equals(Player.WHITE)) {
             king = chessboard.getKingW();
-        }
-        else{
+        } else {
             king = chessboard.getKingB();
         }
-
-        for(ChessPiece piece : pieces) {
-            if(piece.isThreateningKing()){
-
-            }
-        }
-        if(king!=null) {
+        if (king != null) {
             Coordinates oldPos = king.getLocation();
             ArrayList<Coordinates> escapeRoutes = king.tryToEscape(chessboard);
-            for(Coordinates c: escapeRoutes) {
-                if(king.getLocation()!=c){
-                    king.move(chessboard,oldPos);
+            for (Coordinates c : escapeRoutes) {
+                if (king.getLocation() != c) {
+                    king.move(chessboard, oldPos);
                     king.move(chessboard, c);
-                    chessboard.checkLookup();
-                    if(!checkCheck(chessboard, player)) {
+
+                    if (!checkCheck(chessboard)) {
                         king.move(chessboard, oldPos);
                         return false;
                     }

@@ -189,7 +189,6 @@ public class AllowedMoves {
                 if (c.equals(destination)) {
                     return true;
                 }
-
             }
         }
         return true;
@@ -236,49 +235,37 @@ public class AllowedMoves {
 
     private void setAllowedMovesListPawn() {
         boolean incrementingYAxis = this.player == Player.BLACK;
-        if (incrementingYAxis && position.getYCoordinates() < 7) {
-            if (chessboard.getPiece(new Coordinates(position.getXCoordinates(), position.getYCoordinates() + 1)) == null) {
-                allowedMovesList.add(new Coordinates(position.getXCoordinates(), position.getYCoordinates() + 1));
-                if (position.equals(startCoordinate) && chessboard.getPiece(new Coordinates(position.getXCoordinates(), position.getYCoordinates() + 2)) == null &&
-                        position.getYCoordinates() < 6) {
-                    allowedMovesList.add(new Coordinates(position.getXCoordinates(), position.getYCoordinates() + 2));
-                }
-            }
-            if (position.getXCoordinates() < 7) {
-                Coordinates temp = new Coordinates(position.getXCoordinates() + 1, position.getYCoordinates() + 1);
-                if (chessboard.getPiece(temp) != null && !chessboard.getPiece(temp).getPlayer().equals(this.player)) {
-                    allowedMovesList.add(temp);
-                }
-            }
-            if(position.getXCoordinates()>0) {
-                Coordinates temp = new Coordinates(position.getXCoordinates() - 1, position.getYCoordinates() + 1);
-                if (chessboard.getPiece(temp) != null && !chessboard.getPiece(temp).getPlayer().equals(this.player)) {
-                    allowedMovesList.add(temp);
-                }
-            }
 
+        int y;
+        if(incrementingYAxis) {
+            y = 1;
+        }else {
+            y = -1;
         }
-        if (!incrementingYAxis && position.getYCoordinates() > 0) {
-            if (chessboard.getPiece(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 1)) == null) {
-                allowedMovesList.add(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 1));
-                if (position.getYCoordinates() > 1 && position.equals(startCoordinate) && chessboard.getPiece(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 2)) == null
-                        ) {
-                    allowedMovesList.add(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 2));
+        int xCoord = position.getXCoordinates();
+        int yCoord = position.getYCoordinates();
+        if(yCoord>0 && yCoord<7) {
+            if (chessboard.getPiece(new Coordinates(xCoord, yCoord + y)) == null) {
+                allowedMovesList.add(new Coordinates(xCoord, yCoord + y));
+                if (((yCoord == 1 && incrementingYAxis)||(yCoord == 6 && !incrementingYAxis)) && position.equals(startCoordinate) && chessboard.getPiece(new Coordinates(xCoord, yCoord + (y*2))) == null
+                ) {
+                    allowedMovesList.add(new Coordinates(xCoord, yCoord + (y*2)));
                 }
             }
-            if(position.getXCoordinates()<7) {
-                Coordinates temp = new Coordinates(position.getXCoordinates() + 1, position.getYCoordinates() - 1);
+            if(xCoord<7) {
+                Coordinates temp = new Coordinates(xCoord + 1, yCoord+y);
                 if (chessboard.getPiece(temp) != null && !chessboard.getPiece(temp).getPlayer().equals(this.player)) {
                     allowedMovesList.add(temp);
                 }
             }
-            if(position.getXCoordinates()>0) {
-                Coordinates temp = new Coordinates(position.getXCoordinates() - 1, position.getYCoordinates() - 1);
+            if(xCoord>0) {
+                Coordinates temp = new Coordinates(xCoord - 1, yCoord + y);
                 if (chessboard.getPiece(temp) != null && !chessboard.getPiece(temp).getPlayer().equals(this.player)) {
                     allowedMovesList.add(temp);
                 }
             }
         }
+
     }
 
     public Coordinates getObstacle() {
