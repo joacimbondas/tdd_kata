@@ -39,8 +39,13 @@ public class QueenTest {
         Assertions.assertTrue(queen.canMove(chessboard, new Coordinates('g', 1)));
 
         for(int i = 1; i < 8; i++) {
-            Assertions.assertTrue(queen.canMove(chessboard, new Coordinates('d', i)));
-            Assertions.assertTrue(queen.canMove(chessboard, new Coordinates(i, 4)));
+            if(i!=4){
+                Assertions.assertTrue(queen.canMove(chessboard, new Coordinates('d', i)));
+            }
+            if(i!=3){
+                Assertions.assertTrue(queen.canMove(chessboard, new Coordinates(i, 4)));
+            }
+
         }
 
 

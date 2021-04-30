@@ -229,6 +229,9 @@ public class AllowedMoves {
         if (symbol.equals("P")) {
             setAllowedMovesListPawn();
         }
+        while(allowedMovesList.contains(position)) {
+            allowedMovesList.remove(position);
+        }
     }
 
     private void setAllowedMovesListPawn() {
@@ -255,11 +258,11 @@ public class AllowedMoves {
             }
 
         }
-        if (!incrementingYAxis && position.getYCoordinates() > 1) {
+        if (!incrementingYAxis && position.getYCoordinates() > 0) {
             if (chessboard.getPiece(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 1)) == null) {
                 allowedMovesList.add(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 1));
-                if (position.equals(startCoordinate) && chessboard.getPiece(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 2)) == null
-                        && position.getYCoordinates() > 1) {
+                if (position.getYCoordinates() > 1 && position.equals(startCoordinate) && chessboard.getPiece(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 2)) == null
+                        ) {
                     allowedMovesList.add(new Coordinates(position.getXCoordinates(), position.getYCoordinates() - 2));
                 }
             }

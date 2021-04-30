@@ -49,6 +49,7 @@ public class Chessboard {
         setPieces();
         for (ChessPiece c : pieces) {
             c.setCheck(false);
+            c.setThreatensKing(false);
         }
         for (ChessPiece c : pieces) {
             if(c.isCaught()) {

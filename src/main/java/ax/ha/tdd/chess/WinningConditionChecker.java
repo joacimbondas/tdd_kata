@@ -12,18 +12,19 @@ public class WinningConditionChecker {
         pieces = new ArrayList<>();
         setAllPiecesList(chessboard);
         chessboard.checkLookup();
-        if(checkCheck(chessboard, player)){
-            return WinningState.CHECK;
-        }
+
         if(checkCheckmate(chessboard, player)){
             return WinningState.CHECKMATE;
+        }
+        chessboard.checkLookup();
+        if(checkCheck(chessboard, player)){
+            return WinningState.CHECK;
         }
         return WinningState.PLAYING;
     }
     public static boolean checkCheck(Chessboard chessboard, Player player) {
         for(ChessPiece c : pieces) {
-            if(c.isCheck()) {
-                king = (King)c;
+            if(c.isCheck() || c.isThreateningKing()) {
                 return true;
             }
         }
@@ -47,16 +48,25 @@ public class WinningConditionChecker {
             king = chessboard.getKingB();
         }
 
+        for(ChessPiece piece : pieces) {
+            if(piece.isThreateningKing()){
+
+            }
+        }
         if(king!=null) {
             Coordinates oldPos = king.getLocation();
             ArrayList<Coordinates> escapeRoutes = king.tryToEscape(chessboard);
             for(Coordinates c: escapeRoutes) {
-                king.move(chessboard, c);
-                chessboard.checkLookup();
-                if(!checkCheck(chessboard, player)) {
-                    king.move(chessboard, oldPos);
-                    return false;
+                if(king.getLocation()!=c){
+                    king.move(chessboard,oldPos);
+                    king.move(chessboard, c);
+                    chessboard.checkLookup();
+                    if(!checkCheck(chessboard, player)) {
+                        king.move(chessboard, oldPos);
+                        return false;
+                    }
                 }
+
             }
             return true;
         }
