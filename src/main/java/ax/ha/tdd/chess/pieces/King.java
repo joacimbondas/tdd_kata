@@ -14,7 +14,7 @@ public class King extends ChessPiece {
     private boolean check;
 
     public King(Player player, Coordinates location, Chessboard chessboard) {
-        super(player, location);
+        super(player, location, "K");
         allowedMoves = new AllowedMoves();
         allowedMoves.setPlayer(player);
         check = false;
@@ -47,44 +47,12 @@ public class King extends ChessPiece {
         return symbol;
     }
 
-    @Override
-    public boolean canMove(Chessboard chessboard, Coordinates destination) {
-        allowedMoves.setPosition(location);
-        allowedMoves.setChessboard(chessboard);
-        allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList(symbol);
-        return allowedMoves.getAllowedMovesList().contains(destination) && allowedMoves.pathIsClear();
-    }
-
-    public boolean canCatch(Chessboard chessboard, Coordinates destination) {
-        allowedMoves.setPosition(location);
-        allowedMoves.setChessboard(chessboard);
-        allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList(symbol);
-        if (allowedMoves.getAllowedMovesList().contains(destination) && !allowedMoves.pathIsClear()) {
-            return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player) &&
-                    !chessboard.getPiece(allowedMoves.getObstacle()).getSymbol().equals("K");
-        }
-        return false;
-    }
-
     public boolean isCheck() {
         return check;
     }
 
     public void setCheck(boolean check) {
         this.check = check;
-    }
-
-    @Override
-    public void checkLookup(Chessboard chessboard) {
-        allowedMoves.setPosition(location);
-        allowedMoves.setChessboard(chessboard);
-        allowedMoves.setAllowedMovesList(symbol);
-        for (Coordinates c : allowedMoves.getAllowedMovesList()) {
-            allowedMoves.setDestination(c);
-            allowedMoves.pathIsClear();
-        }
     }
 
     public ArrayList<Coordinates> tryToEscape(Chessboard chessboard) {

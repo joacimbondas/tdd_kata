@@ -7,12 +7,10 @@ import ax.ha.tdd.chess.Player;
 import java.util.ArrayList;
 
 public class Queen extends ChessPiece{
-    private final AllowedMoves allowedMoves;
     private final String symbol = "Q";
     public Queen(Player player, Coordinates location) {
-        super(player, location);
-        allowedMoves = new AllowedMoves();
-        allowedMoves.setPlayer(player);
+        super(player, location, "Q");
+
     }
 
     @Override
@@ -20,36 +18,4 @@ public class Queen extends ChessPiece{
         return symbol;
     }
 
-
-    @Override
-    public boolean canMove(Chessboard chessboard, Coordinates destination) {
-
-        allowedMoves.setPosition(location);
-        allowedMoves.setChessboard(chessboard);
-        allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList(symbol);
-        return allowedMoves.getAllowedMovesList().contains(destination) && allowedMoves.pathIsClear();
-    }
-    public boolean canCatch(Chessboard chessboard, Coordinates destination) {
-
-        allowedMoves.setPosition(location);
-        allowedMoves.setChessboard(chessboard);
-        allowedMoves.setDestination(destination);
-        allowedMoves.setAllowedMovesList(symbol);
-        if(allowedMoves.getAllowedMovesList().contains(destination) && !allowedMoves.pathIsClear()) {
-            return !chessboard.getPiece(allowedMoves.getObstacle()).getPlayer().equals(this.player) &&
-                    !chessboard.getPiece(allowedMoves.getObstacle()).getSymbol().equals("K");
-        }
-        return false;
-    }
-    @Override
-    public void checkLookup(Chessboard chessboard) {
-        allowedMoves.setPosition(location);
-        allowedMoves.setChessboard(chessboard);
-        allowedMoves.setAllowedMovesList(symbol);
-        for(Coordinates c : allowedMoves.getAllowedMovesList()) {
-            allowedMoves.setDestination(c);
-            allowedMoves.pathIsClear();
-        }
-    }
 }

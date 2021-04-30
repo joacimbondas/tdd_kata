@@ -15,7 +15,7 @@ public class ChessPieceStub extends ChessPiece {
     public ChessPieceStub(final String symbol,
                           final Player player,
                           final Coordinates location) {
-        super(player, location);
+        super(player, location, symbol);
         this.symbol = symbol;
     }
 

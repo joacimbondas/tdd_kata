@@ -25,7 +25,6 @@ public class AllowedMoves {
     private String symbol;
 
 
-
     private Player player;
 
     private Coordinates obstacle;
@@ -120,9 +119,9 @@ public class AllowedMoves {
             for (int j = 0; j < 3; j++) {
                 int x = this.position.getXCoordinates() + xCoord[i];
                 int y = this.position.getYCoordinates() + yCoord[j];
-                if(x>=0 && x<=7 && y>=0 && y<=7)
-                allowedMovesList.add(new Coordinates(this.position.getXCoordinates() + xCoord[i],
-                        this.position.getYCoordinates() + yCoord[j]));
+                if (x >= 0 && x <= 7 && y >= 0 && y <= 7)
+                    allowedMovesList.add(new Coordinates(this.position.getXCoordinates() + xCoord[i],
+                            this.position.getYCoordinates() + yCoord[j]));
             }
         }
     }
@@ -228,7 +227,7 @@ public class AllowedMoves {
         if (symbol.equals("P")) {
             setAllowedMovesListPawn();
         }
-        while(allowedMovesList.contains(position)) {
+        while (allowedMovesList.contains(position)) {
             allowedMovesList.remove(position);
         }
     }
@@ -237,28 +236,28 @@ public class AllowedMoves {
         boolean incrementingYAxis = this.player == Player.BLACK;
 
         int y;
-        if(incrementingYAxis) {
+        if (incrementingYAxis) {
             y = 1;
-        }else {
+        } else {
             y = -1;
         }
         int xCoord = position.getXCoordinates();
         int yCoord = position.getYCoordinates();
-        if(yCoord>0 && yCoord<7) {
+        if (yCoord > 0 && yCoord < 7) {
             if (chessboard.getPiece(new Coordinates(xCoord, yCoord + y)) == null) {
                 allowedMovesList.add(new Coordinates(xCoord, yCoord + y));
-                if (((yCoord == 1 && incrementingYAxis)||(yCoord == 6 && !incrementingYAxis)) && position.equals(startCoordinate) && chessboard.getPiece(new Coordinates(xCoord, yCoord + (y*2))) == null
+                if (((yCoord == 1 && incrementingYAxis) || (yCoord == 6 && !incrementingYAxis)) && position.equals(startCoordinate) && chessboard.getPiece(new Coordinates(xCoord, yCoord + (y * 2))) == null
                 ) {
-                    allowedMovesList.add(new Coordinates(xCoord, yCoord + (y*2)));
+                    allowedMovesList.add(new Coordinates(xCoord, yCoord + (y * 2)));
                 }
             }
-            if(xCoord<7) {
-                Coordinates temp = new Coordinates(xCoord + 1, yCoord+y);
+            if (xCoord < 7) {
+                Coordinates temp = new Coordinates(xCoord + 1, yCoord + y);
                 if (chessboard.getPiece(temp) != null && !chessboard.getPiece(temp).getPlayer().equals(this.player)) {
                     allowedMovesList.add(temp);
                 }
             }
-            if(xCoord>0) {
+            if (xCoord > 0) {
                 Coordinates temp = new Coordinates(xCoord - 1, yCoord + y);
                 if (chessboard.getPiece(temp) != null && !chessboard.getPiece(temp).getPlayer().equals(this.player)) {
                     allowedMovesList.add(temp);
@@ -275,6 +274,7 @@ public class AllowedMoves {
     public void setStartCoordinate(Coordinates startCoordinate) {
         this.startCoordinate = startCoordinate;
     }
+
     public void setPlayer(Player player) {
         this.player = player;
     }
